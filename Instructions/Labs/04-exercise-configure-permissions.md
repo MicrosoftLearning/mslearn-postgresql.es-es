@@ -19,7 +19,7 @@ Para completar estos ejercicios, debes instalar un servidor PostgreSQL que esté
 1. En un explorador web, vaya a [Azure Portal](https://portal.azure.com). Inicie sesión con una cuenta de propietario o colaborador.
 2. En Servicios de Azure, seleccione **Grupos de recursos** y, a continuación, seleccione **+ Crear**.
 3. Comprueba que se muestra la suscripción correcta y, a continuación, especifica el nombre del grupo de recursos como **rg-PostgreSQL_Entra**. Seleccione una **región**.
-4. Seleccione **Revisar + crear**. Seleccione **Crear**.
+4. Selecciona **Revisar + crear.** Seleccione **Crear**.
 
 ## Creación de servidor flexible de Azure Database for PostgreSQL
 
@@ -45,7 +45,7 @@ Para completar estos ejercicios, debes instalar un servidor PostgreSQL que esté
     1. Método de conectividad: (o) Acceso público (direcciones IP permitidas) y Punto de conexión privado
     1. Acceso público, selecciona **Permitir el acceso público a este recurso a través de Internet mediante una dirección IP pública**
     1. En Reglas de firewall, seleccione **+ Agregar dirección IP del cliente actual** para agregar la dirección IP actual como regla de firewall. Opcionalmente, puede asignar un nombre significativo a esta regla de firewall. También, agrega **Agregar 0.0.0.0 - 255.255.255.255** y haz clic en **Continuar**
-1. Seleccione **Revisar + crear**. Revisa la configuración, y, después, selecciona **Crear** para crear el servidor flexible de Azure Database for PostgreSQL. Una vez completada la implementación, seleccione **Ir al recurso** para ir el paso siguiente.
+1. Selecciona **Revisar + crear.** Revisa la configuración, y, después, selecciona **Crear** para crear el servidor flexible de Azure Database for PostgreSQL. Una vez completada la implementación, seleccione **Ir al recurso** para ir el paso siguiente.
 
 ## Instalación de Azure Data Studio
 
@@ -81,7 +81,7 @@ Para instalar Azure Data Studio para su uso con Azure Database for PostgreSQL:
 
 ### Creación de la base de datos ZooDb
 
-1. Ve a la carpeta con los archivos de script del ejercicio o descarga **Lab2_ZooDb.sql** de los [Laboratorios de PostgreSQL de MSLearn](https://github.com/MicrosoftLearning/mslearn-postgresql/Allfiles/Labs/02).
+1. Ve a la carpeta con los archivos de script del ejercicio o descarga **Lab2_ZooDb.sql** de los [Laboratorios de PostgreSQL de MSLearn](https://github.com/MicrosoftLearning/mslearn-postgresql/blob/main/Allfiles/Labs/02).
 1. Abra Azure Data Studio si aún no lo ha hecho.
 1. Seleccione **Archivo**, **Abrir archivo** y vaya a la carpeta donde guardó el script. Selecciona **../Allfiles/Labs/02/Lab2_ZooDb.sql** y **Abrir**. Si se muestra una advertencia de confianza, seleccione **Abrir**.
 1. Ejecute el script. Se crea la base de datos ZooDb.
