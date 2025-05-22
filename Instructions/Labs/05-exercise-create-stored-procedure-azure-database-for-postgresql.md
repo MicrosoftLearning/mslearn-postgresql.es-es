@@ -6,40 +6,98 @@ lab:
 
 # Creación de un procedimiento almacenado en Azure Database for PostgreSQL
 
-En este ejercicio, crearás un procedimiento almacenado.
+En este ejercicio, crearás un par de procedimientos almacenados y los ejecutarás.
 
 ## Antes de comenzar
 
 Debe tener una suscripción a Azure propia para completar este ejercicio. Si no tiene una suscripción a Azure, puede obtener una [evaluación gratuita de Azure](https://azure.microsoft.com/free).
 
+Además, necesitas tener instalado lo siguiente en tu equipo:
+
+- Visual Studio Code.
+- Extensión Visual Studio Code de Postgres de Microsoft.
+- Azure CLI.
+- Git.
+
 ## Creación del entorno de ejercicio
 
-En este ejercicio y todos los ejercicios posteriores usarás Bicep en Azure Cloud Shell para implementar el servidor PostgreSQL.
-Omite la implementación de recursos y la instalación de Azure Data Studio si ya los tienes instalados.
+En este ejercicio y en otros posteriores, usas un script de Bicep para implementar Azure Database for PostgreSQL: servidor flexible y otros recursos en tu suscripción a Azure. Los scripts de Bicep se encuentran en la carpeta `/Allfiles/Labs/Shared` del repositorio de GitHub que has clonado anteriormente.
+
+### Descarga e instala Visual Studio Code y la extensión de PostgreSQL
+
+Si no tienes instalado Visual Studio Code:
+
+1. En un explorador, ve a [Descargar Visual Studio Code](https://code.visualstudio.com/download) y selecciona la versión adecuada para tu sistema operativo.
+
+1. Sigue las instrucciones de instalación de tu sistema operativo.
+
+1. Abra Visual Studio Code.
+
+1. En el menú izquierdo, seleccione **Extensiones** para mostrar el panel Extensiones.
+
+1. En la barra de búsqueda, escriba **PostgreSQL**. Se muestra el icono de la extensión de PostgreSQL para Visual Studio Code. Asegúrate de seleccionar la de Microsoft.
+
+1. Seleccione **Instalar**. La extensión se instala.
+
+### Descarga e instalación de CLI de Azure y Git
+
+Si no tienes instalado CLI de Azure o Git:
+
+1. En un explorador, ve a [Instalar CLI de Azure](https://learn.microsoft.com/cli/azure/install-azure-cli) y sigue las instrucciones adecuadas para tu sistema operativo.
+
+1. En un explorador, ve a [Descargar e instalar Git](https://git-scm.com/downloads) y sigue las instrucciones del sistema operativo.
+
+### Descarga de los archivos de los ejercicios
+
+Si ya has clonado el repositorio de GitHub que contiene los archivos de ejercicio, *omite la descarga de los archivos del ejercicio*.
+
+Para descargar los archivos del ejercicio, clona el repositorio de GitHub que contiene los archivos de ejercicio en la máquina local. El repositorio contiene todos los scripts y recursos que necesitas para completar este ejercicio.
+
+1. Abre Visual Studio Code si aún no se ha abierto.
+
+1. Selecciona **Mostrar todos los comandos** (Ctrl+Mayús+P) para abrir la paleta de comandos.
+
+1. En la paleta de comandos, busca **Git: clonar** y selecciónalo.
+
+1. En la paleta de comandos, escribe lo siguiente para clonar el repositorio de GitHub que contiene recursos de ejercicio y presiona **Entrar**:
+
+    ```bash
+    https://github.com/MicrosoftLearning/mslearn-postgresql.git
+    ```
+
+1. Sigue las indicaciones para seleccionar una carpeta en la que clonar el repositorio. El repositorio se clona en una carpeta denominada `mslearn-postgresql` de la ubicación seleccionada.
+
+1. Cuando se le pregunte si desea abrir el repositorio clonado, seleccione**Abrir**. El repositorio se abre en Visual Studio Code.
 
 ### Implementación de recursos en tu suscripción a Azure
 
-Este paso te guía por el uso de comandos de la CLI de Azure desde Azure Cloud Shell para crear un grupo de recursos y ejecutar un script de Bicep para implementar los servicios de Azure necesarios para completar este ejercicio en tu suscripción a Azure.
+Si tus recursos de Azure ya están instalados, *omite la implementación de recursos*.
 
-> Nota:
->
-> Si vas a realizar varios módulos en esta ruta de aprendizaje, puedes compartir el entorno de Azure entre ellos. En ese caso, solo debes completar este paso de implementación de recursos una vez.
+Este paso te guiará por el uso de los comandos de la CLI de Azure desde Visual Studio Code para crear un grupo de recursos y ejecutar un script de Bicep para implementar los servicios de Azure necesarios para completar este ejercicio en la suscripción a Azure.
 
-1. Abra un explorador web y vaya a [Azure Portal](https://portal.azure.com/).
+> &#128221; Si vas a realizar varios módulos en esta ruta de aprendizaje, puedes compartir el entorno de Azure entre ellos. En ese caso, solo deberás completar este paso de implementación de recursos una vez.
 
-2. Selecciona el icono de **Cloud Shell** en la barra de herramientas de Azure Portal para abrir un nuevo panel de [Cloud Shell](https://learn.microsoft.com/azure/cloud-shell/overview) en la parte inferior de la ventana del explorador.
+1. Abre Visual Studio Code si no está ya abierto, y abre la carpeta donde has clonado el repositorio de GitHub.
 
-    ![Captura de pantalla de la barra de herramientas de Azure con el icono de Cloud Shell resaltado en un cuadro rojo.](media/05-portal-toolbar-cloud-shell.png)
+1. Expande la carpeta **mslearn-postgresql** en el panel Explorador.
 
-    Si se te solicita, selecciona las opciones necesarias para abrir un shell de *Bash*. Si anteriormente has usado una consola de *PowerShell*, cámbiala a un shell de *Bash*.
+1. Expande la carpeta **Allfiles/Labs/Shared**.
 
-3. En el símbolo del sistema de Cloud Shell, escribe lo siguiente para clonar el repositorio de GitHub que contiene recursos del ejercicio:
+1. Haz clic con el botón derecho del ratón en la carpeta **Allfiles/Labs/Shared** y selecciona **Open in Integrated Terminal**. Esta selección abre una ventana de terminal en la ventana de Visual Studio Code.
+
+1. El terminal puede abrir una ventana de **PowerShell** de forma predeterminada. Para esta sección del laboratorio, vas a usar el **shell de Bash**. Además del icono **+**, hay una flecha desplegable. Selecciónalo y elige **Git Bash** o **Bash** en la lista de perfiles disponibles. Esta selección abre una nueva ventana de terminal con el **shell de Bash**.
+
+    > &#128221; Puedes cerrar la ventana del terminal de **PowerShell** si quieres, pero no es necesario. Puedes tener varias ventanas de terminal abiertas al mismo tiempo.
+
+1. En la ventana del terminal, ejecuta el siguiente comando para iniciar sesión en tu cuenta de Azure:
 
     ```bash
-    git clone https://github.com/MicrosoftLearning/mslearn-postgresql.git
+    az login
     ```
 
-4. A continuación, ejecutarás tres comandos para definir variables para reducir la escritura redundante al usar comandos de la CLI de Azure para crear recursos de Azure. Las variables representan el nombre que se va a asignar a tu grupo de recursos (`RG_NAME`), la región de Azure (`REGION`) en la que se implementarán los recursos y una contraseña generada aleatoriamente para el inicio de sesión de administrador de PostgreSQL (`ADMIN_PASSWORD`).
+    Este comando abre una nueva ventana del explorador que te solicita que inicies sesión en tu cuenta de Azure. Después de iniciar sesión, vuelve a la ventana del terminal.
+
+1. A continuación, ejecutarás tres comandos para definir variables para reducir la escritura redundante al usar comandos de la CLI de Azure para crear recursos de Azure. Las variables representan el nombre que se asigna al grupo de recursos (`RG_NAME`), la región de Azure (`REGION`) en la que se implementan los recursos y una contraseña generada aleatoriamente para el inicio de sesión de administrador de PostgreSQL (`ADMIN_PASSWORD`).
 
     En el primer comando, la región asignada a la variable correspondiente es `eastus`, pero también puedes reemplazarla por una ubicación de tu preferencia.
 
@@ -47,7 +105,7 @@ Este paso te guía por el uso de comandos de la CLI de Azure desde Azure Cloud S
     REGION=eastus
     ```
 
-    El siguiente comando asigna el nombre que se usará para el grupo de recursos que hospedará todos los recursos usados en este ejercicio. El nombre del grupo de recursos asignado a la variable correspondiente es `rg-learn-work-with-postgresql-$REGION`, donde `$REGION` es la ubicación que especificaste anteriormente. Sin embargo, puedes cambiarlo a cualquier otro nombre de grupo de recursos que se adapte a tu preferencia.
+    El siguiente comando asigna el nombre que se usará para el grupo de recursos que hospeda todos los recursos usados en este ejercicio. El nombre del grupo de recursos asignado a la variable correspondiente es `rg-learn-work-with-postgresql-$REGION`, donde `$REGION` es la ubicación especificada anteriormente. *Sin embargo, puedes cambiarlo a cualquier otro nombre de grupo de recursos que se adapte a tu preferencia o que ya puedas tener*.
 
     ```bash
     RG_NAME=rg-learn-work-with-postgresql-$REGION
@@ -56,45 +114,62 @@ Este paso te guía por el uso de comandos de la CLI de Azure desde Azure Cloud S
     El comando final genera aleatoriamente una contraseña para el inicio de sesión de administrador de PostgreSQL. Asegúrate de copiarlo en un lugar seguro para poder usarlo más adelante para conectarte al servidor flexible de PostgreSQL.
 
     ```bash
+    #!/bin/bash
+    
+    # Define array of allowed characters explicitly
+    chars=( {a..z} {A..Z} {0..9} '!' '@' '#' '$' '%' '^' '&' '*' '(' ')' '_' '+' )
+    
     a=()
-    for i in {a..z} {A..Z} {0..9}; 
-       do
-       a[$RANDOM]=$i
+    for ((i = 0; i < 100; i++)); do
+        rand_char=${chars[$RANDOM % ${#chars[@]}]}
+        a+=("$rand_char")
     done
-    ADMIN_PASSWORD=$(IFS=; echo "${a[*]::18}")
+    
+    # Join first 18 characters without delimiter
+    ADMIN_PASSWORD=$(IFS=; echo "${a[*]:0:18}")
+    
     echo "Your randomly generated PostgreSQL admin user's password is:"
-    echo $ADMIN_PASSWORD
+    echo "$ADMIN_PASSWORD"
+    echo "Please copy it to a safe place, as you will need it later to connect to your PostgreSQL flexible server."
     ```
 
-5. Si tienes acceso a más de una suscripción a Azure y tu suscripción predeterminada no es aquella en la que quieres crear el grupo de recursos y otros recursos para este ejercicio, ejecuta este comando para establecer la suscripción adecuada. Para ello, reemplaza el token `<subscriptionName|subscriptionId>` por el nombre o el identificador de la suscripción que quieres usar:
+1. (Si tienes acceso a más de una suscripción a Azure, y tu suscripción predeterminada *no es* en la que deseas crear el grupo de recursos y otros recursos para este ejercicio, ejecuta este comando para establecer la suscripción adecuada al reemplazar el token `<subscriptionName|subscriptionId>` por el nombre o el Id. de la suscripción que deseas usar:
 
     ```azurecli
-    az account set --subscription <subscriptionName|subscriptionId>
+    az account set --subscription 16b3c013-d300-468d-ac64-7eda0820b6d3
     ```
 
-6. Ejecuta el siguiente comando de la CLI de Azure para crear tu grupo de recursos:
+1. (Omitir si vas a usar un grupo de recursos existente) Ejecuta el siguiente comando de la CLI de Azure para crear tu grupo de recursos:
 
     ```azurecli
     az group create --name $RG_NAME --location $REGION
     ```
 
-7. Por último, usa la CLI de Azure para ejecutar un script de implementación de Bicep para aprovisionar recursos de Azure en tu grupo de recursos:
+1. Por último, usa la CLI de Azure para ejecutar un script de implementación de Bicep para aprovisionar recursos de Azure en tu grupo de recursos:
 
     ```azurecli
-    az deployment group create --resource-group $RG_NAME --template-file "mslearn-postgresql/Allfiles/Labs/Shared/deploy-postgresql-server.bicep" --parameters adminLogin=pgAdmin adminLoginPassword=$ADMIN_PASSWORD
+    az deployment group create --resource-group $RG_NAME --template-file "Allfiles/Labs/Shared/deploy-postgresql-server.bicep" --parameters adminLogin=pgAdmin adminLoginPassword=$ADMIN_PASSWORD
     ```
 
     El script de implementación de Bicep aprovisiona los servicios de Azure necesarios para completar este ejercicio en tu grupo de recursos. Los recursos implementados son un servidor flexible de Azure Database for PostgreSQL. El script de bicep también crea una base de datos, que se puede configurar en la línea de comandos como parámetro.
 
-    La implementación tarda normalmente varios minutos en completarse. Puedes supervisarla desde Cloud Shell o ir a la página **Implementaciones** del grupo de recursos que creaste anteriormente y observar allí el progreso de la implementación.
+    La implementación tarda normalmente varios minutos en completarse. Puedes supervisarlo desde el terminal de Bash o ir a la página **Implementaciones** del grupo de recursos que has creado anteriormente y observar el progreso de la implementación allí.
 
-8. Cierra el panel de Cloud Shell una vez completada la implementación de recursos.
+1. Dado que el script crea un nombre aleatorio para el servidor postgreSQL, puedes encontrar el nombre del servidor al ejecutar el siguiente comando:
+
+    ```azurecli
+    az postgres flexible-server list --query "[].{Name:name, ResourceGroup:resourceGroup, Location:location}" --output table
+    ```
+
+    Anota el nombre del servidor, ya que lo necesitas para conectarte al servidor más adelante en este ejercicio.
+
+    > &#128221; También puedes encontrar el nombre del servidor en Azure Portal. En Azure Portal, ve a **Grupos de recursos** y selecciona el grupo de recursos que has creado anteriormente. El servidor PostgreSQL aparece en el grupo de recursos.
 
 ### Solución de errores de implementación
 
-Es posible que encuentres algunos errores al ejecutar el script de implementación de Bicep. Los mensajes más comunes y los pasos para resolverlos son:
+Es posible que encuentres algunos errores al ejecutar el script de implementación de Bicep. Los mensajes y los pasos más comunes para resolverlos son:
 
-- Si anteriormente ejecutaste el script de implementación de Bicep para esta ruta de aprendizaje y, posteriormente, eliminaste los recursos, puedes recibir un mensaje de error similar al siguiente si intentas volver a ejecutar el script en un plazo de 48 horas después de eliminar los recursos:
+- Si anteriormente has ejecutado el script de implementación de Bicep para esta ruta de aprendizaje y, posteriormente, has eliminado los recursos, puedes recibir un mensaje de error similar al siguiente si intentas volver a ejecutar el script en un plazo de 48 horas después de eliminar los recursos:
 
     ```bash
     {"code": "InvalidTemplateDeployment", "message": "The template deployment 'deploy' is not valid according to the validation procedure. The tracking id is '4e87a33d-a0ac-4aec-88d8-177b04c1d752'. See inner errors for details."}
@@ -103,15 +178,15 @@ Es posible que encuentres algunos errores al ejecutar el script de implementaci�
     {"code": "FlagMustBeSetForRestore", "message": "An existing resource with ID '/subscriptions/{subscriptionId}/resourceGroups/rg-learn-postgresql-ai-eastus/providers/Microsoft.CognitiveServices/accounts/{accountName}' has been soft-deleted. To restore the resource, you must specify 'restore' to be 'true' in the property. If you don't want to restore existing resource, please purge it first."}
     ```
 
-    Si recibes este mensaje, modifica el comando `azure deployment group create` anterior para establecer el parámetro `restore` igual a `true` y vuelve a ejecutarlo.
+    Si recibes este mensaje, modifica el comando `azure deployment group create` anterior para que el parámetro `restore` sea igual a `true` y vuelve a ejecutarlo.
 
-- Si la región seleccionada está restringida al aprovisionamiento de recursos específicos, debes establecer la variable `REGION` en otra ubicación y volver a ejecutar los comandos para crear el grupo de recursos y ejecutar el script de implementación de Bicep.
+- Si la región seleccionada está restringida al aprovisionamiento de recursos específicos, deberás establecer la variable `REGION` en otra ubicación y volver a ejecutar los comandos para crear el grupo de recursos y ejecutar el script de implementación de Bicep.
 
     ```bash
     {"status":"Failed","error":{"code":"DeploymentFailed","target":"/subscriptions/{subscriptionId}/resourceGroups/{resourceGrouName}/providers/Microsoft.Resources/deployments/{deploymentName}","message":"At least one resource deployment operation failed. Please list deployment operations for details. Please see https://aka.ms/arm-deployment-operations for usage details.","details":[{"code":"ResourceDeploymentFailure","target":"/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforPostgreSQL/flexibleServers/{serverName}","message":"The resource write operation failed to complete successfully, because it reached terminal provisioning state 'Failed'.","details":[{"code":"RegionIsOfferRestricted","message":"Subscriptions are restricted from provisioning in this region. Please choose a different region. For exceptions to this rule please open a support request with Issue type of 'Service and subscription limits'. See https://review.learn.microsoft.com/en-us/azure/postgresql/flexible-server/how-to-request-quota-increase for more details."}]}]}}
     ```
 
-- Si el script no puede crear un recurso de IA debido al requisito de aceptar el contrato de IA responsable, puedes experimentar el siguiente error; en cuyo caso, usa la interfaz de usuario de Azure Portal para crear un recurso de Servicios de Azure AI y, a continuación, vuelve a ejecutar el script de implementación.
+- Si el laboratorio requiere recursos de IA, es posible que recibas el siguiente error. Este error se produce cuando el script no puede crear un recurso de IA debido al requisito de aceptar el contrato de IA responsable. Si es así, usa la interfaz de usuario de Azure Portal para crear un recurso de Servicios de Azure AI y después vuelve a ejecutar el script de implementación.
 
     ```bash
     {"code": "InvalidTemplateDeployment", "message": "The template deployment 'deploy' is not valid according to the validation procedure. The tracking id is 'f8412edb-6386-4192-a22f-43557a51ea5f'. See inner errors for details."}
@@ -120,96 +195,129 @@ Es posible que encuentres algunos errores al ejecutar el script de implementaci�
     {"code": "ResourceKindRequireAcceptTerms", "message": "This subscription cannot create TextAnalytics until you agree to Responsible AI terms for this resource. You can agree to Responsible AI terms by creating a resource through the Azure Portal then trying again. For more detail go to https://go.microsoft.com/fwlink/?linkid=2164190"}
     ```
 
-## Clonación del repositorio de GitHub localmente
+## Conexión a la extensión de PostgreSQL en Visual Studio Code
 
-Asegúrate de que ya has clonado los scripts de laboratorio de [PostgreSQL Labs](https://github.com/MicrosoftLearning/mslearn-postgresql.git). Si no lo has hecho, para clonar el repositorio localmente:
+En esta sección, te conectarás al servidor PostgreSQL mediante la extensión PostgreSQL en Visual Studio Code. Usa la extensión PostgreSQL para ejecutar scripts de SQL en el servidor PostgreSQL.
 
-1. Abre una línea de comandos o un terminal.
-1. Ejecute el comando:
-    ```bash
-    md .\DP3021Lab
-    git clone https://github.com/MicrosoftLearning/mslearn-postgresql.git .\DP3021Lab
-    ```
-    > NOTA
-    > 
-    > Si **git** no está instalado, [descarga e instala la aplicación ***git*** ](https://git-scm.com/download)e intenta volver a ejecutar los comandos anteriores.
+1. Abre Visual Studio Code si no está ya abierto, y abre la carpeta donde has clonado el repositorio de GitHub.
 
-## Instalación de Azure Data Studio
+1. Selecciona el icono de **PostgreSQL** en el menú izquierdo.
 
-Si no tienes instalado Azure Data Studio:
+    > &#128221; Si no ves el icono de PostgreSQL, selecciona el icono **Extensiones** y busca **PostgreSQL**. Selecciona la extensión **PostgreSQL** de Microsoft y selecciona **Instalar**.
 
-1. En un explorador, vaya a [Download and install Azure Data Studio](/sql/azure-data-studio/download-azure-data-studio) (Descargar e instalar Azure Data Studio) y, en la plataforma de Windows, seleccione **User installer (recommended)** (Instalador de usuario [recomendado]). El archivo ejecutable se descargará en la carpeta Descargas.
-1. Seleccione **Abrir archivo**.
-1. Se muestra el contrato de licencia. Lea y **acepte el contrato** y, después, seleccione **Siguiente**.
-1. En **Seleccionar tareas adicionales**, seleccione **Agregar a PATH** y cualquier otra adición que necesite. Seleccione **Siguiente**.
-1. Se muestra el cuadro de diálogo **Listo para instalar**. Revise la configuración. Seleccione **Atrás** para realizar cambios o **Instalar**.
-1. Se muestra el cuadro de diálogo **Completing the Azure Data Studio Setup Wizard** (Finalización del Asistente para instalar Azure Data Studio). Seleccione **Finalizar**. Azure Data Studio se inicia.
+1. Si ya has creado una conexión con el servidor PostgreSQL, ve al paso siguiente. Para crear una nueva conexión:
 
-## Instalación de la extensión de PostgreSQL
+    1. En la extensión **PostgreSQL**, selecciona **+ Agregar conexión** para agregar una nueva conexión.
 
-Si no tienes instalada la extensión PostgreSQL en Azure Data Studio:
+    1. En el cuadro de diálogo **NUEVA CONEXIÓN**, escribe la siguiente información:
 
-1. Abra Azure Data Studio si aún no lo ha hecho.
-1. En el menú izquierdo, seleccione **Extensiones** para mostrar el panel Extensiones.
-1. En la barra de búsqueda, escriba **PostgreSQL**. Se muestra el icono de la extensión de PostgreSQL para Azure Data Studio.
-1. Seleccione **Instalar**. La extensión se instala.
+        - **Nombre del servidor**: <your-server-name>.postgres.database.azure.com
+        - **Tipo de autenticación**: contraseña
+        - **Nombre de usuario**: pgAdmin
+        - **Contraseña**: la contraseña aleatoria que has generado anteriormente.
+        - Marca la casilla **Guardar contraseña**.
+        - **Nombre de conexión**: <your-server-name>
 
-## Conexión con el servidor flexible de Azure Database for PostrgreSQL
+    1. Prueba la conexión al seleccionar **Probar conexión**. Si la conexión se realiza correctamente, selecciona **Guardar y conectar** para guardar la conexión; de lo contrario, revisa la información de conexión e inténtalo de nuevo.
 
-1. Abra Azure Data Studio si aún no lo ha hecho.
-1. En el menú de la izquierda, seleccione **Conexiones**.
-1. Seleccione **Nueva conexión**.
-1. En **Detalles de conexión**, en **Tipo de conexión**, seleccione **PostgreSQL** en la lista desplegable.
-1. En **Nombre del servidor**, escriba el nombre completo del servidor tal y como aparece en Azure Portal.
-1. En **Tipo de autenticación**, deje Contraseña.
-1. En Nombre de usuario y Contraseña, escribe el nombre de usuario **pgAdmin** y **la contraseña de administrador aleatoria** que creaste anteriormente.
-1. Seleccione [ x ] Recordar contraseña.
-1. Los demás campos son opcionales.
-1. Seleccione **Conectar**. Se ha conectado con el servidor de Azure Database for PostgreSQL.
-1. Se muestra una lista de las bases de datos de servidor. Esto incluye las bases de datos del sistema y del usuario.
-1. Si aún no has creado la base de datos zoodb, selecciona **Archivo**, **Abrir archivo** y ve a la carpeta donde guardaste los scripts. Selecciona **../Allfiles/Labs/02/Lab2_ZooDb.sql** y **Abrir**.
-   1. Resalta las instrucciones **DROP** y **CREATE** y ejecútalas.
-   1. En la parte superior de la pantalla, use la flecha desplegable para mostrar las bases de datos del servidor, incluidas ZooDb y las bases de datos del sistema. Selecciona la base de datos **zoodb**.
-   1. Resalta las secciones **Crear tablas**, **Crear claves externas** y **Rellenar tablas** y ejecútalas.
-   1. Resalta las 3 instrucciones **SELECT** al final del script y ejecútalos para comprobar que las tablas se crearon y rellenaron.
+1. Si aún no estás conectado, selecciona **Conectar** para el servidor PostgreSQL. Se ha conectado con el servidor de Azure Database for PostgreSQL.
+
+1. Expande el nodo de servidor y sus bases de datos. Se muestran las bases de datos existentes.
+
+1. Si aún no has creado la base de datos zoodb, selecciona **Archivo**, **Abrir archivo** y ve a la carpeta donde has guardado los scripts. Selecciona **../Allfiles/Labs/02/Lab2_ZooDb.sql** y **Abrir**.
+
+1. En la parte inferior derecha de Visual Studio Code, asegúrate de que la conexión sea verde. Si no es así, debería decir **PGSQL desconectado**. Selecciona el texto **PGSQL desconectado** y después selecciona tu conexión al servidor PostgreSQL de la lista de la paleta de comandos. Si solicita una contraseña, escribe la contraseña que has generado anteriormente.
+
+    > &#128221; También puedes cambiar la base de datos en el panel de consulta. Puedes anotar el nombre del servidor y el nombre de la base de datos en la propia pestaña de consulta. Al seleccionar el nombre de la base de datos, aparecerá una lista de bases de datos. Seleccione la base de datos `zoodb` de la lista.
+
+1. Es hora de crear la base de datos.
+
+    1. Resalta las instrucciones **DROP** y **CREATE** y ejecútalas.
+
+    1. Si resaltas solo la instrucción **SELECT current_database()** y la ejecutas, observas que la base de datos está establecida actualmente en `postgres`. Debes cambiarla a `zoodb`.
+
+    1. Selecciona los puntos suspensivos de la barra de menús con el icono *ejecutar* y selecciona **Cambiar base de datos de PostgreSQL**. Selecciona `zoodb` de la lista de bases de datos.
+
+    1. Ejecute de nuevo la instrucción **SELECT current_database()** para confirmar que la base de datos está ahora establecida en `zoodb`.
+
+    1. Resalta las secciones **Tablas creadas**, **Crear claves externas** y **Rellenar tablas** y ejecútalas.
+
+    1. Resalta las 3 instrucciones **SELECT** al final del script y ejecútalos para comprobar que las tablas se crearon y rellenaron.
 
 ## Creación del procedimiento almacenado repopulate_zoo()
 
-1. En la parte superior de la pantalla, use la flecha desplegable para convertir zoodb en la base de datos actual.
-1. En Azure Data Studio, seleccione **Archivo**, **Abrir archivo** y, a continuación, vaya a los scripts de laboratorio. Selecciona **../Allfiles/Labs/03/Lab3_RepopulateZoo.sql** y, después, selecciona **Abrir**. Si es necesario, vuelva a conectarse al servidor.
+En esta sección, crearás el procedimiento almacenado `repopulate_zoo()`. Este procedimiento se usa para volver a rellenar la base de datos zoo con datos. El procedimiento trunca y elimina todos los datos de las tablas y después las rellena con datos nuevos.
+
+1. En la ventana de Visual Studio Code, selecciona **Archivo**, **Abrir archivo**, y después ve a los scripts de laboratorio. Selecciona **../Allfiles/Labs/03/Lab3_RepopulateZoo.sql** y, después, selecciona **Abrir**. Si es necesario, vuelve a conectarte al servidor al seleccionar el texto **PGSQL desconectado** y después selecciona tu conexión al servidor PostgreSQL de la lista de la paleta de comandos. Si solicita una contraseña, escribe la contraseña que has generado anteriormente.
+
+1. Ejecuta la instrucción **SELECT current_database()** para comprobar la base de datos actual. De nuevo, lo más probable es que la base de datos esté establecida en `postgres`. Si es así, debes cambiarlo a `zoodb`. Selecciona los puntos suspensivos de la barra de menús con el icono *ejecutar* y selecciona **Cambiar base de datos de PostgreSQL**. Selecciona `zoodb` de la lista de bases de datos. Vuelve a probar la conexión al ejecutar la instrucción **SELECT current_database()**.
+
 1. Resalta la sección en **Crear procedimiento almacenado** de **DROP PROCEDURE** en **END $$.** Ejecuta el texto resaltado.
-1. Mantenga abierto Azure Data Studio con el archivo abierto, listo para el ejercicio siguiente.
+
+1. Mantén Visual Studio Code abierto para continuar con la siguiente sección.
 
 ## Creación del procedimiento almacenado new_exhibit()
 
-1. En la parte superior de la pantalla, use la flecha desplegable para convertir zoodb en la base de datos actual.
-1. En Azure Data Studio, seleccione **Archivo**, **Abrir archivo** y, a continuación, vaya a los scripts de laboratorio. Selecciona **../Allfiles/Labs/05/Lab5_StoredProcedure.sql** y, después, selecciona **Abrir**. Si es necesario, vuelva a conectarse al servidor.
-1. Resalta la sección en **Crear procedimiento almacenado** de **DROP PROCEDURE** en **END $$.** Ejecuta el texto resaltado. Lee el procedimiento. Verá que declara algunos parámetros de entrada y los usa para insertar filas en la tabla enclosure y la tabla animal.
-1. Mantenga abierto Azure Data Studio con el archivo abierto, listo para el ejercicio siguiente.
+En esta sección, crearás el procedimiento almacenado `new_exhibit()`. Este procedimiento se usa para agregar una nueva exposición a la base de datos zoo. El procedimiento inserta una nueva fila en la tabla enclosure y después inserta filas en la tabla animal para cada animal de la exposición.
+
+1. En Visual Studio Code, selecciona **Archivo**, **Abrir archivo**, y después ve a los scripts de laboratorio. Selecciona **../Allfiles/Labs/05/Lab5_StoredProcedure.sql** y, después, selecciona **Abrir**. Si es necesario, vuelve a conectarte al servidor al seleccionar el texto **PGSQL desconectado** y después selecciona tu conexión al servidor PostgreSQL de la lista de la paleta de comandos. Si solicita una contraseña, escribe la contraseña que has generado anteriormente.
+
+1. Ejecuta la instrucción **SELECT current_database()** para comprobar la base de datos actual. De nuevo, lo más probable es que la base de datos esté establecida en `postgres`. Si es así, debes cambiarlo a `zoodb`. Selecciona los puntos suspensivos de la barra de menús con el icono *ejecutar* y selecciona **Cambiar base de datos de PostgreSQL**. Selecciona `zoodb` de la lista de bases de datos. Vuelve a probar la conexión al ejecutar la instrucción **SELECT current_database()**.
+
+1. Resalta la instrucción **CALL repopulate_zoo()** y ejecútala para empezar con datos limpios.
+
+1. Resalta la sección en **Crear procedimiento almacenado** de **DROP PROCEDURE** en **END $$.** Ejecuta el texto resaltado. Lee el procedimiento. Ves que declara algunos parámetros de entrada y los usa para insertar filas en la tabla enclosure y la tabla animal.
+
+1. Mantén Visual Studio Code abierto para continuar con la siguiente sección.
 
 ## Llame al procedimiento almacenado
 
-1. Resalte la sección bajo **Llamada al procedimiento almacenado**. Ejecuta el texto resaltado. De este modo, se llama al procedimiento almacenado pasando valores a los parámetros de entrada.
-1. Resalte y ejecute las dos instrucciones **SELECT**. Ejecuta el texto resaltado. Puede ver que se insertó una fila nueva en enclosure y cinco filas nuevas insertadas en animal.
+Ahora que has creado el procedimiento almacenado `new_exhibit()`, puedes llamarlo para agregar una nueva exhibición a la base de datos zoo. El procedimiento toma varios parámetros de entrada, incluyendo el nombre de la exposición, el tipo de recinto y el número de animales de la exposición.
+
+1. Resalta la sección que sigue al comentario **Llamar al procedimiento almacenado**. Ejecuta el texto resaltado. Este script llama al procedimiento almacenado pasando valores a los parámetros de entrada.
+
+1. Resalte y ejecute las dos instrucciones **SELECT**. Ejecuta el texto resaltado. Observa que se inserta una nueva fila en enclosure y cinco nuevas filas en animal.
 
 ## Creación y llamada de una función con valores de tabla
 
-1. En Azure Data Studio, seleccione **Archivo**, **Abrir archivo** y, a continuación, vaya a los scripts de laboratorio. Selecciona **../Allfiles/Labs/05/Lab5_Table_Function.sql** y, después, selecciona **Abrir**.
-1. Resalte y ejecute la primera instrucción **SELECT** para comprobar que la base de datos zoodb esté seleccionada.
-1. Resalte y ejecute el procedimiento almacenado **repopulate_zoo()** para empezar con datos limpios.
-1. Resalte y ejecute la sección bajo **Creación de una función con valores de tabla**. Esta función devuelve una tabla denominada **enclosure_summary**. Lea el código de la función para comprender cómo se rellena la tabla.
+Es hora de crear una función con valores de tabla. Una función con valores de tabla es una función definida por el usuario que devuelve una tabla. Puedes usar una función con valores de tabla en una instrucción `SELECT`, igual que una tabla normal.
+
+1. En Visual Studio Code, selecciona **Archivo**, **Abrir archivo**, y después ve a los scripts de laboratorio. Selecciona **../Allfiles/Labs/05/Lab5_Table_Function.sql** y, después, selecciona **Abrir**. Si es necesario, vuelve a conectarte al servidor al seleccionar el texto **PGSQL desconectado** y después selecciona tu conexión al servidor PostgreSQL de la lista de la paleta de comandos. Si solicita una contraseña, escribe la contraseña que has generado anteriormente.
+
+1. Ejecuta la instrucción **SELECT current_database()** para comprobar la base de datos actual. De nuevo, lo más probable es que la base de datos esté establecida en `postgres`. Si es así, debes cambiarlo a `zoodb`. Selecciona los puntos suspensivos de la barra de menús con el icono *ejecutar* y selecciona **Cambiar base de datos de PostgreSQL**. Selecciona `zoodb` de la lista de bases de datos. Vuelve a probar la conexión al ejecutar la instrucción **SELECT current_database()**.
+
+1. Resalta y ejecuta el procedimiento almacenado **CALL repopulate_zoo()** para empezar con datos limpios.
+
+1. Resalta y ejecuta la sección bajo el comentario **Creación de una función con valores de tabla**. Esta función devuelve una tabla denominada **enclosure_summary**. Lea el código de la función para comprender cómo se rellena la tabla.
+
 1. Resalte y ejecute las dos instrucciones Select, pasando un identificador de contenedor diferente cada vez.
-1. Resalte y ejecute la sección bajo **Uso de una función con valores de tabla con una combinación LATERAL**. Esto muestra la función con valores de tabla que se usa en lugar de un nombre de tabla en una combinación.
 
-## Ejercicio opcional: Funciones integradas
+1. Resalta y ejecuta la sección bajo el comentario **Uso de una función con valor de tabla con una combinación LATERAL**. Este script muestra la función con valores de tabla que se usa en lugar de un nombre de tabla en una combinación.
 
-1. En Azure Data Studio, seleccione **Archivo**, **Abrir archivo** y, a continuación, vaya a los scripts de laboratorio. Selecciona **../Allfiles/Labs/05/Lab5_SimpleFunctions.sql** y, después, selecciona **Abrir**.
-1. Resalte y ejecute cada función para ver cómo funciona. Consulte la [documentación en línea](https://www.postgresql.org/docs/current/functions.html) para más información sobre cada función.
-1. Cierre Azure Data Studio sin guardar los scripts.
-1. DETENGA el servidor de Azure Database for PostgreSQL para que no se le cobre cuando no use el servidor.
+## Funciones integradas
+
+En esta sección, explorarás algunas de las funciones integradas disponibles en PostgreSQL. PostgreSQL tiene un amplio conjunto de funciones integradas que puedes usar para realizar diversas operaciones en los datos. Estas funciones se pueden usar en consultas SQL para manipular y analizar datos.
+
+1. En Visual Studio Code, selecciona **Archivo**, **Abrir archivo**, y después ve a los scripts de laboratorio. Selecciona **../Allfiles/Labs/05/Lab5_InbuiltFunctions.sql** y después **Abrir**. Si es necesario, vuelve a conectarte al servidor al seleccionar el texto **PGSQL desconectado** y después selecciona tu conexión al servidor PostgreSQL de la lista de la paleta de comandos. Si solicita una contraseña, escribe la contraseña que has generado anteriormente.
+
+> &#128221; Las funciones de este script no son específicas de la base de datos zoo. Son funciones generales de PostgreSQL que se pueden usar en cualquier base de datos. Puedes ejecutarlas en cualquier base de datos, incluyendo la base de datos `postgres`.
+
+1. Resalte y ejecute cada función para ver cómo funciona. Para obtener más información, consulta el artículo [documentación en línea](https://www.postgresql.org/docs/current/functions.html) para obtener información sobre cada función.
+
+1. Si deseas mantener el servidor PostgreSQL en funcionamiento, puedes dejarlo en ejecución. De lo contrario, puedes detener el servidor para evitar incurrir en costes innecesarios en el terminal de Bash. Para detener el servidor, ejecuta el siguiente comando:
+
+    ```azurecli
+    az postgres flexible-server stop --name <your-server-name> --resource-group $RG_NAME
+    ```
+
+    Reemplaza `<your-server-name>` por el nombre de tu servidor PostgreSQL.
+
+    > &#128221; También puedes detener el servidor desde Azure Portal. En Azure Portal, ve a **Grupos de recursos** y selecciona el grupo de recursos que has creado anteriormente. Selecciona el servidor PostgreSQL y después **Detener** en el menú.
+
+1. Cierra Visual Studio Code.
 
 ## Limpieza
 
-1. Elimina el grupo de recursos creado en este ejercicio para evitar incurrir en costos innecesarios de Azure.
-1. Si es necesario, elimina la carpeta .\DP3021Lab.
+1. Si ya no necesitas este servidor PostgreSQL para otros ejercicios, para evitar incurrir en costes innecesarios de Azure, elimina el grupo de recursos creado en este ejercicio.
 
+1. Si es necesario, elimina el repositorio Git que has clonado anteriormente.
