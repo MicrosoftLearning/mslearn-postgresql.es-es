@@ -6,30 +6,30 @@ lab:
 
 # Configuración de permisos en Azure Database for PostgreSQL
 
-En estos ejercicios de laboratorio, asignarás roles de control de acceso basado en rol (RBAC) para controlar el acceso a los recursos de Azure Database for PostgreSQL y CONCESIONES de PostgreSQL para controlar el acceso a las operaciones de base de datos.
+En estos ejercicios de laboratorio, asignarás control de acceso basado en rol (RBAC) para controlar el acceso a los recursos de Azure Database for PostgreSQL y concesiones de PostgreSQL para controlar el acceso a las operaciones de base de datos.
 
 ## Antes de comenzar
 
 Debe tener una suscripción a Azure propia para completar este ejercicio. Si no tiene una suscripción a Azure, puede obtener una [evaluación gratuita de Azure](https://azure.microsoft.com/free).
 
-Además, necesitas tener instalado lo siguiente en tu equipo:
+Además, debes tener lo siguiente instalado en el equipo:
 
 - Visual Studio Code.
-- Extensión Visual Studio Code de Postgres de Microsoft.
+- Extensión Postgres Visual Studio Code de Microsoft
 - Azure CLI.
 - Git.
 
 ## Creación del entorno de ejercicio
 
-En este ejercicio y en otros posteriores, usas un script de Bicep para implementar Azure Database for PostgreSQL: servidor flexible y otros recursos en tu suscripción a Azure. Los scripts de Bicep se encuentran en la carpeta `/Allfiles/Labs/Shared` del repositorio de GitHub que has clonado anteriormente.
+En estos ejercicios y los ejercicios posteriores, se usa un script de Bicep para implementar el servidor flexible de Azure Database for PostgreSQL, así como otros recursos en la suscripción a Azure. Los scripts de Bicep se encuentran en la carpeta `/Allfiles/Labs/Shared` del repositorio de GitHub que clonaste anteriormente.
 
-### Descarga e instala Visual Studio Code y la extensión de PostgreSQL
+### Descarga e instala Visual Studio Code y la extensión de PostgreSQL.
 
-Si no tienes instalado Visual Studio Code:
+Si no tienes instalado Visual Studio Code:
 
 1. En un explorador, ve a [Descargar Visual Studio Code](https://code.visualstudio.com/download) y selecciona la versión adecuada para tu sistema operativo.
 
-1. Sigue las instrucciones de instalación de tu sistema operativo.
+1. Sigue las instrucciones de instalación para tu sistema operativo.
 
 1. Abra Visual Studio Code.
 
@@ -39,39 +39,39 @@ Si no tienes instalado Visual Studio Code:
 
 1. Seleccione **Instalar**. La extensión se instala.
 
-### Descarga e instalación de CLI de Azure y Git
+### Descarga e instalación de la CLI de Azure y Git
 
-Si no tienes instalado CLI de Azure o Git:
+Si no tienes la CLI de Azure o Git, debes instalarla:
 
-1. En un explorador, ve a [Instalar CLI de Azure](https://learn.microsoft.com/cli/azure/install-azure-cli) y sigue las instrucciones adecuadas para tu sistema operativo.
+1. En el explorador, ve a [Instalar la CLI de Azure](https://learn.microsoft.com/cli/azure/install-azure-cli) y sigue las instrucciones para el sistema operativo.
 
 1. En un explorador, ve a [Descargar e instalar Git](https://git-scm.com/downloads) y sigue las instrucciones del sistema operativo.
 
 ### Descarga de los archivos de los ejercicios
 
-Si ya has clonado el repositorio de GitHub que contiene los archivos de ejercicio, *omite la descarga de los archivos del ejercicio*.
+Si ya has clonado el repositorio de GitHub que contiene los archivos del ejercicio, *omite descargar de los archivos del ejercicio*.
 
-Para descargar los archivos del ejercicio, clona el repositorio de GitHub que contiene los archivos de ejercicio en la máquina local. El repositorio contiene todos los scripts y recursos que necesitas para completar este ejercicio.
+Para descargar los archivos del ejercicio, clona el repositorio de GitHub que contiene los archivos del ejercicio en la máquina local. El repositorio contiene todos los scripts y recursos que necesitas para completar este ejercicio.
 
-1. Abre Visual Studio Code si aún no se ha abierto.
+1. Abre Visual Studio Code si aún no se ha abierto.
 
 1. Selecciona **Mostrar todos los comandos** (Ctrl+Mayús+P) para abrir la paleta de comandos.
 
-1. En la paleta de comandos, busca **Git: clonar** y selecciónalo.
+1. En la paleta de comandos, busca y selecciona **Git: Clone**.
 
-1. En la paleta de comandos, escribe lo siguiente para clonar el repositorio de GitHub que contiene recursos de ejercicio y presiona **Entrar**:
+1. En la paleta de comandos, escribe lo siguiente para clonar el repositorio de GitHub que contiene los recursos del ejercicio y presiona **Entrar**:
 
     ```bash
     https://github.com/MicrosoftLearning/mslearn-postgresql.git
     ```
 
-1. Sigue las indicaciones para seleccionar una carpeta en la que clonar el repositorio. El repositorio se clona en una carpeta denominada `mslearn-postgresql` de la ubicación seleccionada.
+1. Sigue las indicaciones para seleccionar una carpeta para clonar el repositorio. El repositorio se clona en una carpeta denominada `mslearn-postgresql` en la ubicación seleccionada.
 
-1. Cuando se le pregunte si desea abrir el repositorio clonado, seleccione**Abrir**. El repositorio se abre en Visual Studio Code.
+1. Cuando se le pregunte si desea abrir el repositorio clonado, seleccione**Abrir**. El repositorio se abre en Visual Studio Code.
 
 ### Implementación de recursos en tu suscripción a Azure
 
-Si tus recursos de Azure ya están instalados, *omite la implementación de recursos*.
+Si los recursos de Azure ya están instalados, *omite la implementación de recursos*.
 
 Este paso te guiará por el uso de los comandos de la CLI de Azure desde Visual Studio Code para crear un grupo de recursos y ejecutar un script de Bicep para implementar los servicios de Azure necesarios para completar este ejercicio en la suscripción a Azure.
 
@@ -133,7 +133,7 @@ Este paso te guiará por el uso de los comandos de la CLI de Azure desde Visual 
     echo "Please copy it to a safe place, as you will need it later to connect to your PostgreSQL flexible server."
     ```
 
-1. (Si tienes acceso a más de una suscripción a Azure, y tu suscripción predeterminada *no es* en la que deseas crear el grupo de recursos y otros recursos para este ejercicio, ejecuta este comando para establecer la suscripción adecuada al reemplazar el token `<subscriptionName|subscriptionId>` por el nombre o el Id. de la suscripción que deseas usar:
+1. (Omite este paso si usas una suscripción predeterminada). Si tienes acceso a más de una suscripción a Azure, y tu suscripción predeterminada *no es* en la que deseas crear el grupo de recursos y otros recursos para este ejercicio, ejecuta este comando para establecer la suscripción adecuada al reemplazar el token `<subscriptionName|subscriptionId>` por el nombre o el id. de la suscripción que quieras usar:
 
     ```azurecli
     az account set --subscription 16b3c013-d300-468d-ac64-7eda0820b6d3
@@ -155,7 +155,7 @@ Este paso te guiará por el uso de los comandos de la CLI de Azure desde Visual 
 
     La implementación tarda normalmente varios minutos en completarse. Puedes supervisarlo desde el terminal de Bash o ir a la página **Implementaciones** del grupo de recursos que has creado anteriormente y observar el progreso de la implementación allí.
 
-1. Dado que el script crea un nombre aleatorio para el servidor postgreSQL, puedes encontrar el nombre del servidor al ejecutar el siguiente comando:
+1. Dado que el script crea un nombre aleatorio para el servidor PostgreSQL, puedes encontrar el nombre del servidor al ejecutar el siguiente comando:
 
     ```azurecli
     az postgres flexible-server list --query "[].{Name:name, ResourceGroup:resourceGroup, Location:location}" --output table
@@ -211,12 +211,12 @@ En esta sección, te conectarás al servidor PostgreSQL mediante la extensión P
 
     1. En el cuadro de diálogo **NUEVA CONEXIÓN**, escribe la siguiente información:
 
-        - **Nombre del servidor**: <your-server-name>.postgres.database.azure.com
+        - **Nombre del servidor**: `<your-server-name>`.postgres.database.azure.com
         - **Tipo de autenticación**: contraseña
         - **Nombre de usuario**: pgAdmin
         - **Contraseña**: la contraseña aleatoria que has generado anteriormente.
         - Marca la casilla **Guardar contraseña**.
-        - **Nombre de conexión**: <your-server-name>
+        - **Nombre de conexión**: `<your-server-name>`
 
     1. Prueba la conexión al seleccionar **Probar conexión**. Si la conexión se realiza correctamente, selecciona **Guardar y conectar** para guardar la conexión; de lo contrario, revisa la información de conexión e inténtalo de nuevo.
 
@@ -228,8 +228,6 @@ En esta sección, te conectarás al servidor PostgreSQL mediante la extensión P
 
 1. En la parte inferior derecha de Visual Studio Code, asegúrate de que la conexión sea verde. Si no es así, debería decir **PGSQL desconectado**. Selecciona el texto **PGSQL desconectado** y después selecciona tu conexión al servidor PostgreSQL de la lista de la paleta de comandos. Si solicita una contraseña, escribe la contraseña que has generado anteriormente.
 
-    > &#128221; También puedes cambiar la base de datos en el panel de consulta. Puedes anotar el nombre del servidor y el nombre de la base de datos en la propia pestaña de consulta. Al seleccionar el nombre de la base de datos, aparecerá una lista de bases de datos. Seleccione la base de datos `zoodb` de la lista.
-
 1. Es hora de crear la base de datos.
 
     1. Resalta las instrucciones **DROP** y **CREATE** y ejecútalas.
@@ -238,15 +236,17 @@ En esta sección, te conectarás al servidor PostgreSQL mediante la extensión P
 
     1. Selecciona los puntos suspensivos de la barra de menús con el icono *ejecutar* y selecciona **Cambiar base de datos de PostgreSQL**. Selecciona `zoodb` de la lista de bases de datos.
 
+        > &#128221; También puedes cambiar la base de datos en el panel de consulta. Puedes anotar el nombre del servidor y el nombre de la base de datos en la propia pestaña de consulta. Al seleccionar el nombre de la base de datos, aparecerá una lista de bases de datos. Selecciona la base de datos `zoodb` de la lista.
+
     1. Ejecute de nuevo la instrucción **SELECT current_database()** para confirmar que la base de datos está ahora establecida en `zoodb`.
 
-    1. Resalta las secciones **Tablas creadas**, **Crear claves externas** y **Rellenar tablas** y ejecútalas.
+    1. Resalta las secciones **Crear tablas**, **Crear claves externas** y **Rellenar tablas** y ejecútalas.
 
     1. Resalta las 3 instrucciones **SELECT** al final del script y ejecútalos para comprobar que las tablas se crearon y rellenaron.
 
 ## Creación de una cuenta de usuario en Microsoft Entra ID
 
-> &#128221; En la mayoría de los entornos de producción o desarrollo, es muy posible que no tengas los privilegios de la cuenta de suscripción para crear cuentas en tu servicio Microsoft Entra ID. En ese caso, si la organización lo permite, intenta pedir al administrador de Microsoft Entra ID que cree una cuenta de prueba automáticamente. *Si no puedes obtener la cuenta de prueba de Microsoft Entra, omite esta sección y continúa con la sección **CONCEDER acceso a Azure Database for PostgreSQL***.
+> &#128221; En la mayoría de los entornos de producción o desarrollo, es muy posible que no tengas los privilegios de la cuenta de suscripción para crear cuentas en tu servicio Microsoft Entra ID. En ese caso, si la organización lo permite, intenta pedir al administrador de Microsoft Entra ID que cree una cuenta de prueba automáticamente. *Si no puedes obtener la cuenta de prueba Microsoft Entra, omite esta sección y continúa con la sección **Concesión de acceso a Azure Database for PostgreSQL***.
 
 1. En [Azure Portal](https://portal.azure.com), inicia sesión con una cuenta de Propietario y ve a Microsoft Entra ID.
 
@@ -260,7 +260,7 @@ En esta sección, te conectarás al servidor PostgreSQL mediante la extensión P
     - **Contraseña:** desactiva **Generar automáticamente la contraseñas** y, a continuación, escribe una contraseña segura. Registra el nombre principal y la contraseña.
     - Seleccionar **Revisar y crear**.
 
-    > &#128161; Cuando se cree el usuario, anote el **nombre principal de usuario** completo para usarlo más adelante para iniciar sesión.
+    > &#128161; Cuando se cree el usuario, anota el **nombre principal de usuario** completo para usarlo más adelante para iniciar sesión.
 
 ### Asignación del rol Lector
 
@@ -272,7 +272,7 @@ En esta sección, te conectarás al servidor PostgreSQL mediante la extensión P
 
 1. Seleccione el rol **Lector** y, a continuación, seleccione **Siguiente**.
 
-1. Elige **+ Seleccionar miembros** y agrega la nueva cuenta que has agregado en el paso anterior a la lista de miembros y después selecciona **Siguiente**.
+1. Elige **+ Seleccionar miembros**, agrega la nueva cuenta que agregaste en el paso anterior a la lista de miembros y, después, selecciona **Siguiente**.
 
 1. Seleccione **Revisar y asignar**.
 
@@ -282,7 +282,7 @@ En esta sección, te conectarás al servidor PostgreSQL mediante la extensión P
 
 1. Inicia sesión como el nuevo usuario, con el nombre principal de usuario y la contraseña que anotaste. Reemplace la contraseña predeterminada si se le solicita y tome nota de la nueva.
 
-1. Elige **Preguntarme más tarde** si se te solicita la autenticación multifactor.
+1. Elige **Preguntarme más adelante** si se te solicita autenticación multifactor
 
 1. En la página principal del portal, seleccione **Todos los recursos** y, después, seleccione el recurso Azure Database for PostgreSQL.
 
@@ -326,17 +326,17 @@ En esta sección, te conectarás al servidor PostgreSQL mediante la extensión P
 
 ## Concesión de acceso a Azure Database for PostgreSQL
 
-En esta sección, crearás un nuevo rol en la base de datos de PostgreSQL y le asignarás permisos para acceder a la base de datos. También probarás el nuevo rol para asegurarte de que tienes los permisos correctos.
+En esta sección, crearás un nuevo rol en la base de datos PostgreSQL y le asignarás permisos para acceder a la base de datos. También probarás el nuevo rol para asegurarte de que tiene los permisos correctos.
 
-1. Abre Visual Studio Code si aún no se ha abierto.
+1. Abre Visual Studio Code si aún no se ha abierto.
 
-1. Abre la paleta de comandos (Ctrl+Mayús+P) y selecciona **PGSQL: nueva consulta**.
+1. Abre la paleta de comandos (Ctrl+Mayús+P) y selecciona **PGSQL: New Query**.
 
 1. Selecciona la conexión del servidor PostgreSQL en la lista de la paleta de comandos. Si solicita una contraseña, escribe la contraseña que has generado anteriormente.
 
-1. En la ventana **Nueva consulta**, cambia la base de datos a **zoodb**. Para cambiar la base de datos, selecciona los puntos suspensivos de la barra de menús con el icono *ejecutar* y al seleccionar **Cambiar base de datos de PostgreSQL**. Selecciona `zoodb` de la lista de bases de datos. Verifica que la base de datos está ahora en `zoodb` al ejecutar la instrucción **SELECT current_database();**.
+1. En la ventana **New Query**, cambia la base de datos a **zoodb**. Para cambiar la base de datos, selecciona los puntos suspensivos de la barra de menús con el icono *ejecutar* y al seleccionar **Cambiar base de datos de PostgreSQL**. Selecciona `zoodb` de la lista de bases de datos. Verifica que la base de datos está ahora en `zoodb` al ejecutar la instrucción **SELECT current_database();**.
 
-1. En el panel de consulta, copia, resalta y ejecuta la siguiente instrucción SQL contra la base de datos de Postgres. Se deben devolver varios roles de usuario, incluyendo el rol **pgAdmin** que estás usando para conectarte:
+1. En el panel de consulta, copia, resalta y ejecuta la siguiente instrucción SQL en la base de datos Postgres. Se deben devolver varios roles de usuario, incluido el rol de **pgAdmin** que usas para conectarte:
 
     ```SQL
     SELECT rolname FROM pg_catalog.pg_roles;
@@ -351,13 +351,13 @@ En esta sección, crearás un nuevo rol en la base de datos de PostgreSQL y le a
     GRANT CONNECT ON DATABASE zoodb TO dbuser;
     ```
 
-    > &#128221; Asegúrate de reemplazar la contraseña del script anterior por una contraseña compleja.
+    > &#128221; Asegúrate de reemplazar la contraseña en el script anterior por una contraseña compleja.
 
-1. Para incluir el nuevo rol en la lista, ejecuta de nuevo la consulta SELECT anterior en **pg_catalog.pg_roles**. Debería ver el rol **dbuser** en la lista.
+1. Para incluir en la lista el nuevo rol, vuelve a ejecutar la consulta SELECT anterior en **pg_catalog.pg_roles**. Debería ver el rol **dbuser** en la lista.
 
-1. Para que el nuevo rol pueda consultar y modificar los datos de la tabla **animal** de la base de datos **zoodb**, 
+1. Para habilitar el nuevo rol para consultar y modificar datos en la tabla **animal** de la base de datos **zoodb**, 
 
-    1. En la ventana **Nueva consulta**, cambia la base de datos a **zoodb**. Para cambiar la base de datos, selecciona los puntos suspensivos de la barra de menús con el icono *ejecutar* y al seleccionar **Cambiar base de datos de PostgreSQL**. Selecciona `zoodb` de la lista de bases de datos. Verifica que la base de datos está ahora en `zoodb` al ejecutar la instrucción **SELECT current_database();**.
+    1. En la ventana **New Query**, cambia la base de datos a **zoodb**. Para cambiar la base de datos, selecciona los puntos suspensivos de la barra de menús con el icono *ejecutar* y al seleccionar **Cambiar base de datos de PostgreSQL**. Selecciona `zoodb` de la lista de bases de datos. Verifica que la base de datos está ahora en `zoodb` al ejecutar la instrucción **SELECT current_database();**.
 
     1. ejecuta este código en la base de datos `zoodb`:
 
@@ -367,33 +367,33 @@ En esta sección, crearás un nuevo rol en la base de datos de PostgreSQL y le a
 
 ## Prueba de la aplicación nueva
 
-Vamos a probar el nuevo rol para asegurarte de que tienes los permisos correctos.
+Vamos a probar el nuevo rol para asegurarnos de que tiene los permisos correctos.
 
 1. En la extensión **PostgreSQL**, selecciona **+ Agregar conexión** para agregar una nueva conexión.
 
 1. En el cuadro de diálogo **NUEVA CONEXIÓN**, escribe la siguiente información:
 
-    - **Nombre del servidor**: <your-server-name>.postgres.database.azure.com
+    - **Nombre del servidor**: <tu-nombre-servidor>.postgres.database.azure.com
     - **Tipo de autenticación**: contraseña
     - **Nombre de usuario**: dbuser
-    - **Contraseña**: la contraseña que has usado al crear el nuevo rol.
+    - **Contraseña**: la contraseña que usaste al crear el nuevo rol.
     - Marca la casilla **Guardar contraseña**.
-    - **Nombre de la base de datos**: zoodb
-    - **Nombre de conexión**: <your-server-name> + "-dbuser"
+    - **Nombre de base de datos**: zoodb
+    - **Nombre de conexión**: <tu-nombre-servidor> + "-dbuser"
 
 1. Prueba la conexión al seleccionar **Probar conexión**. Si la conexión se realiza correctamente, selecciona **Guardar y conectar** para guardar la conexión; de lo contrario, revisa la información de conexión e inténtalo de nuevo.
 
-1. Abre la paleta de comandos (Ctrl+Mayús+P) y selecciona **PGSQL: nueva consulta**. Selecciona la nueva conexión que has creado de la lista de la paleta de comandos. Si solicitas una contraseña, escribe la contraseña que has creado para el nuevo rol.
+1. Abre la paleta de comandos (Ctrl+Mayús+P) y selecciona **PGSQL: New Query**. Selecciona la nueva conexión que has creado de la lista de la paleta de comandos. Si solicitas una contraseña, escribe la contraseña que has creado para el nuevo rol.
 
-1. La conexión debería mostrar la base de datos **zoodb** de forma predeterminada. Si no es así, puedes cambiar la base de datos a **zoodb**. Para cambiar la base de datos, selecciona los puntos suspensivos de la barra de menús con el icono *ejecutar* y al seleccionar **Cambiar base de datos de PostgreSQL**. Selecciona `zoodb` de la lista de bases de datos. Verifica que la base de datos está ahora en `zoodb` al ejecutar la instrucción **SELECT current_database();**.
+1. La conexión debe mostrar la base de datos **zoodb** de forma predeterminada. Si no es así, puedes cambiar la base de datos a **zoodb**. Para cambiar la base de datos, selecciona los puntos suspensivos de la barra de menús con el icono *ejecutar* y al seleccionar **Cambiar base de datos de PostgreSQL**. Selecciona `zoodb` de la lista de bases de datos. Verifica que la base de datos está ahora en `zoodb` al ejecutar la instrucción **SELECT current_database();**.
 
-1. En la ventana **Nueva consulta**, copia, resalta y ejecuta la siguiente instrucción SQL contra la base de datos **zoodb**:
+1. En la ventana **New Query**, copia, resalta y ejecuta la siguiente instrucción SQL en la base de datos **zoodb**:
 
     ```SQL
     SELECT * FROM animal;
     ```
 
-1. Para comprobar si tienes el privilegio UPDATE, copia, resalta y ejecuta este código:
+1. Para probar si tienes el privilegio UPDATE, copia, resalta y ejecuta este código:
 
     ```SQL
     UPDATE animal SET name = 'Linda Lioness' WHERE ani_id = 7;
@@ -412,10 +412,24 @@ Vamos a probar el nuevo rol para asegurarte de que tienes los permisos correctos
     GRANT ALL PRIVILEGES ON animal TO dbuser;
     ```
 
-Estas pruebas muestran que el nuevo usuario puede ejecutar comandos del lenguaje de manipulación de datos (DML) para consultar y modificar datos. Sin embargo, el nuevo usuario no puede usar comandos del lenguaje de definición de datos (DDL) para cambiar el esquema. Además, el nuevo usuario no puede conceder privilegios nuevos para eludir los permisos.
+Estas pruebas muestran que el nuevo usuario puede ejecutar comandos del lenguaje de manipulación de datos (DML) para consultar y modificar datos. Pero el nuevo usuario no puede usar comandos del lenguaje de definición de datos (DDL) para cambiar el esquema. Además, el nuevo usuario no puede conceder privilegios nuevos para eludir los permisos.
 
 ## Limpieza
 
 1. Si ya no necesitas este servidor PostgreSQL para otros ejercicios, para evitar incurrir en costes innecesarios de Azure, elimina el grupo de recursos creado en este ejercicio.
 
+1. Si deseas mantener el servidor PostgreSQL en funcionamiento, puedes dejarlo en ejecución. Si no quiere dejar que se ejecute, puedes detener el servidor para evitar incurrir en costes innecesarios en el terminal de Bash. Para detener el servidor, ejecuta el siguiente comando:
+
+    ```azurecli
+    az postgres flexible-server stop --name <your-server-name> --resource-group $RG_NAME
+    ```
+
+    Reemplaza `<your-server-name>` por el nombre de tu servidor PostgreSQL.
+
+    > &#128221; También puedes detener el servidor desde Azure Portal. En Azure Portal, ve a **Grupos de recursos** y selecciona el grupo de recursos que has creado anteriormente. Selecciona el servidor PostgreSQL y después **Detener** en el menú.
+
 1. Si es necesario, elimina el repositorio Git que has clonado anteriormente.
+
+Has completado correctamente este ejercicio. Has aprendido cómo asignar roles de RBAC para controlar el acceso a los recursos de Azure Database for PostgreSQL y concesiones de PostgreSQL para controlar el acceso a las operaciones de base de datos.
+
+También has aprendido a crear una nueva cuenta de usuario en Microsoft Entra ID y asignarle los roles Lector y Colaborador. Por último, has creado un nuevo rol en PostgreSQL y le has asignado permisos para acceder a la base de datos.
