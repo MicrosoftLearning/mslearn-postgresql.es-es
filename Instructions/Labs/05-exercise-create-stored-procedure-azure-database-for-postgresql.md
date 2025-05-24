@@ -12,24 +12,24 @@ En este ejercicio, crearás un par de procedimientos almacenados y los ejecutar�
 
 Debe tener una suscripción a Azure propia para completar este ejercicio. Si no tiene una suscripción a Azure, puede obtener una [evaluación gratuita de Azure](https://azure.microsoft.com/free).
 
-Además, debes tener lo siguiente instalado en el equipo:
+Además, necesitas tener instalado lo siguiente en tu equipo:
 
 - Visual Studio Code.
-- Extensión Postgres Visual Studio Code de Microsoft
+- Extensión Visual Studio Code de Postgres de Microsoft.
 - Azure CLI.
 - Git.
 
 ## Creación del entorno de ejercicio
 
-En estos ejercicios y los ejercicios posteriores, se usa un script de Bicep para implementar el servidor flexible de Azure Database for PostgreSQL, así como otros recursos en la suscripción a Azure. Los scripts de Bicep se encuentran en la carpeta `/Allfiles/Labs/Shared` del repositorio de GitHub que clonaste anteriormente.
+En este ejercicio y en otros posteriores, usas un script de Bicep para implementar Azure Database for PostgreSQL: servidor flexible y otros recursos en tu suscripción a Azure. Los scripts de Bicep se encuentran en la carpeta `/Allfiles/Labs/Shared` del repositorio de GitHub que has clonado anteriormente.
 
-### Descarga e instala Visual Studio Code y la extensión de PostgreSQL.
+### Descarga e instala Visual Studio Code y la extensión de PostgreSQL
 
-Si no tienes instalado Visual Studio Code:
+Si no tienes instalado Visual Studio Code:
 
 1. En un explorador, ve a [Descargar Visual Studio Code](https://code.visualstudio.com/download) y selecciona la versión adecuada para tu sistema operativo.
 
-1. Sigue las instrucciones de instalación para tu sistema operativo.
+1. Sigue las instrucciones de instalación de tu sistema operativo.
 
 1. Abra Visual Studio Code.
 
@@ -39,41 +39,41 @@ Si no tienes instalado Visual Studio Code:
 
 1. Seleccione **Instalar**. La extensión se instala.
 
-### Descarga e instalación de la CLI de Azure y Git
+### Descarga e instalación de CLI de Azure y Git
 
-Si no tienes la CLI de Azure o Git, debes instalarla:
+Si no tienes instalado CLI de Azure o Git:
 
-1. En el explorador, ve a [Instalar la CLI de Azure](https://learn.microsoft.com/cli/azure/install-azure-cli) y sigue las instrucciones para el sistema operativo.
+1. En un explorador, ve a [Instalar CLI de Azure](https://learn.microsoft.com/cli/azure/install-azure-cli) y sigue las instrucciones adecuadas para tu sistema operativo.
 
 1. En un explorador, ve a [Descargar e instalar Git](https://git-scm.com/downloads) y sigue las instrucciones del sistema operativo.
 
 ### Descarga de los archivos de los ejercicios
 
-Si ya has clonado el repositorio de GitHub que contiene los archivos del ejercicio, *omite descargar de los archivos del ejercicio*.
+Si ya has clonado el repositorio de GitHub que contiene los archivos de ejercicio, *omite la descarga de los archivos del ejercicio*.
 
-Para descargar los archivos del ejercicio, clona el repositorio de GitHub que contiene los archivos del ejercicio en la máquina local. El repositorio contiene todos los scripts y recursos que necesitas para completar este ejercicio.
+Para descargar los archivos del ejercicio, clona el repositorio de GitHub que contiene los archivos de ejercicio en la máquina local. El repositorio contiene todos los scripts y recursos que necesitas para completar este ejercicio.
 
-1. Abre Visual Studio Code si aún no se ha abierto.
+1. Abre Visual Studio Code si aún no se ha abierto.
 
 1. Selecciona **Mostrar todos los comandos** (Ctrl+Mayús+P) para abrir la paleta de comandos.
 
-1. En la paleta de comandos, busca y selecciona **Git: Clone**.
+1. En la paleta de comandos, busca **Git: Clone** y selecciónalo.
 
-1. En la paleta de comandos, escribe lo siguiente para clonar el repositorio de GitHub que contiene los recursos del ejercicio y presiona **Entrar**:
+1. En la paleta de comandos, escribe lo siguiente para clonar el repositorio de GitHub que contiene recursos de ejercicio y presiona **Entrar**:
 
     ```bash
     https://github.com/MicrosoftLearning/mslearn-postgresql.git
     ```
 
-1. Sigue las indicaciones para seleccionar una carpeta para clonar el repositorio. El repositorio se clona en una carpeta denominada `mslearn-postgresql` en la ubicación seleccionada.
+1. Sigue las indicaciones para seleccionar una carpeta en la que clonar el repositorio. El repositorio se clona en una carpeta denominada `mslearn-postgresql` de la ubicación seleccionada.
 
-1. Cuando se le pregunte si desea abrir el repositorio clonado, seleccione**Abrir**. El repositorio se abre en Visual Studio Code.
+1. Cuando se le pregunte si desea abrir el repositorio clonado, seleccione**Abrir**. El repositorio se abre en Visual Studio Code.
 
 ### Implementación de recursos en tu suscripción a Azure
 
-Si los recursos de Azure ya están instalados, *omite la implementación de recursos*.
+Si tus recursos de Azure ya están instalados, *omite la implementación de recursos*.
 
-Este paso te guiará por el uso de los comandos de la CLI de Azure desde Visual Studio Code para crear un grupo de recursos y ejecutar un script de Bicep para implementar los servicios de Azure necesarios para completar este ejercicio en la suscripción a Azure.
+Este paso te guiará por el uso de los comandos de la CLI de Azure desde Visual Studio Code para crear un grupo de recursos y ejecutar un script de Bicep con el fin de implementar los servicios de Azure necesarios para completar este ejercicio en la suscripción a Azure.
 
 > &#128221; Si vas a realizar varios módulos en esta ruta de aprendizaje, puedes compartir el entorno de Azure entre ellos. En ese caso, solo deberás completar este paso de implementación de recursos una vez.
 
@@ -216,11 +216,11 @@ En esta sección, te conectarás al servidor PostgreSQL mediante la extensión P
         - **Nombre de usuario**: pgAdmin
         - **Contraseña**: la contraseña aleatoria que has generado anteriormente.
         - Marca la casilla **Guardar contraseña**.
-        - **Nombre de conexión**: `<your-server-name>`
+        - **Nombre de conexión**: `<your-server-name>`
 
     1. Prueba la conexión al seleccionar **Probar conexión**. Si la conexión se realiza correctamente, selecciona **Guardar y conectar** para guardar la conexión; de lo contrario, revisa la información de conexión e inténtalo de nuevo.
 
-1. Si aún no estás conectado, selecciona **Conectar** para el servidor PostgreSQL. Se ha conectado con el servidor de Azure Database for PostgreSQL.
+1. Si aún no estás conectado, selecciona **Conectar** para el servidor PostgreSQL. Te has conectado con el servidor de Azure Database for PostgreSQL.
 
 1. Expande el nodo de servidor y sus bases de datos. Se muestran las bases de datos existentes.
 
@@ -236,7 +236,7 @@ En esta sección, te conectarás al servidor PostgreSQL mediante la extensión P
 
     1. Selecciona los puntos suspensivos de la barra de menús con el icono *ejecutar* y selecciona **Cambiar base de datos de PostgreSQL**. Selecciona `zoodb` de la lista de bases de datos.
 
-        > &#128221; También puedes cambiar la base de datos en el panel de consulta. Puedes anotar el nombre del servidor y el nombre de la base de datos en la propia pestaña de consulta. Al seleccionar el nombre de la base de datos, aparecerá una lista de bases de datos. Selecciona la base de datos `zoodb` de la lista.
+    > &#128221; También puedes cambiar la base de datos en el panel de consulta. Puedes anotar el nombre del servidor y el nombre de la base de datos en la propia pestaña de consulta. Al seleccionar el nombre de la base de datos, aparecerá una lista de bases de datos. Seleccione la base de datos `zoodb` de la lista.
 
     1. Ejecute de nuevo la instrucción **SELECT current_database()** para confirmar que la base de datos está ahora establecida en `zoodb`.
 
@@ -246,69 +246,65 @@ En esta sección, te conectarás al servidor PostgreSQL mediante la extensión P
 
 ## Creación del procedimiento almacenado repopulate_zoo()
 
-En esta sección, crearás el procedimiento almacenado `repopulate_zoo()`. Este procedimiento se usa para volver a rellenar la base de datos del zoológico con datos. El procedimiento trunca y elimina todos los datos de las tablas y, a continuación, los rellena con nuevos datos.
+En esta sección, crearás el procedimiento almacenado `repopulate_zoo()`. Este procedimiento se usa para volver a rellenar la base de datos zoo con datos. El procedimiento trunca y elimina todos los datos de las tablas y después las rellena con datos nuevos.
 
 1. En la ventana de Visual Studio Code, selecciona **File**, **Open File** y después ve a los scripts de laboratorio. Selecciona **../Allfiles/Labs/03/Lab3_RepopulateZoo.sql** y, después, selecciona **Abrir**. Si es necesario, vuelve a conectarte al servidor al seleccionar el texto **PGSQL desconectado** y después selecciona tu conexión al servidor PostgreSQL de la lista de la paleta de comandos. Si solicita una contraseña, escribe la contraseña que has generado anteriormente.
 
-1. Ejecuta la instrucción **SELECT current_database()** para comprobar la base de datos actual. De nuevo, es muy probable que la base de datos esté establecida en `postgres`. Si es así, debes cambiarla a `zoodb`. Selecciona los puntos suspensivos de la barra de menús con el icono *ejecutar* y selecciona **Cambiar base de datos de PostgreSQL**. Selecciona `zoodb` de la lista de bases de datos. Vuelve a probar la conexión ejecutando la instrucción **SELECT current_database()**.
+1. Ejecuta la instrucción **SELECT current_database()** para comprobar la base de datos actual. De nuevo, lo más probable es que la base de datos esté establecida en `postgres`. Si es así, debes cambiarlo a `zoodb`. Selecciona los puntos suspensivos de la barra de menús con el icono *ejecutar* y selecciona **Cambiar base de datos de PostgreSQL**. Selecciona `zoodb` de la lista de bases de datos. Vuelve a probar la conexión al ejecutar la instrucción **SELECT current_database()**.
 
 1. Resalta la sección en **Crear procedimiento almacenado** de **DROP PROCEDURE** en **END $$.** Ejecuta el texto resaltado.
 
-1. Mantén Visual Studio Code abierto para continuar con la sección siguiente.
+1. Mantén Visual Studio Code abierto para continuar con la siguiente sección.
 
 ## Creación del procedimiento almacenado new_exhibit()
 
-En esta sección, crearás el procedimiento almacenado `new_exhibit()`. Este procedimiento se usa para agregar una nueva exposición a la base de datos del zoológico. El procedimiento inserta una nueva fila en la tabla enclosure y, después, inserta filas en la tabla animal para cada animal de la exposición.
+En esta sección, crearás el procedimiento almacenado `new_exhibit()`. Este procedimiento se usa para agregar una nueva exposición a la base de datos zoo. El procedimiento inserta una nueva fila en la tabla enclosure y después inserta filas en la tabla animal para cada animal de la exposición.
 
-1. En Visual Studio Code, selecciona **File**, **Open File** y, a continuación, ve a los scripts de laboratorio. Selecciona **../Allfiles/Labs/05/Lab5_StoredProcedure.sql** y, después, selecciona **Abrir**. Si es necesario, vuelve a conectarte al servidor al seleccionar el texto **PGSQL desconectado** y después selecciona tu conexión al servidor PostgreSQL de la lista de la paleta de comandos. Si solicita una contraseña, escribe la contraseña que has generado anteriormente.
+1. En Visual Studio Code, selecciona **File**, **Open File**, y después ve a los scripts de laboratorio. Selecciona **../Allfiles/Labs/05/Lab5_StoredProcedure.sql** y, después, selecciona **Abrir**. Si es necesario, vuelve a conectarte al servidor al seleccionar el texto **PGSQL desconectado** y después selecciona tu conexión al servidor PostgreSQL de la lista de la paleta de comandos. Si solicita una contraseña, escribe la contraseña que has generado anteriormente.
 
-1. Ejecuta la instrucción **SELECT current_database()** para comprobar la base de datos actual. De nuevo, es muy probable que la base de datos esté establecida en `postgres`. Si es así, debes cambiarla a `zoodb`. Selecciona los puntos suspensivos de la barra de menús con el icono *ejecutar* y selecciona **Cambiar base de datos de PostgreSQL**. Selecciona `zoodb` de la lista de bases de datos. Vuelve a probar la conexión ejecutando la instrucción **SELECT current_database()**.
+1. Ejecuta la instrucción **SELECT current_database()** para comprobar la base de datos actual. De nuevo, lo más probable es que la base de datos esté establecida en `postgres`. Si es así, debes cambiarlo a `zoodb`. Selecciona los puntos suspensivos de la barra de menús con el icono *ejecutar* y selecciona **Cambiar base de datos de PostgreSQL**. Selecciona `zoodb` de la lista de bases de datos. Vuelve a probar la conexión al ejecutar la instrucción **SELECT current_database()**.
 
 1. Resalta la instrucción **CALL repopulate_zoo()** y ejecútala para empezar con datos limpios.
 
-1. Resalta la sección en **Crear procedimiento almacenado** de **DROP PROCEDURE** en **END $$.** Ejecuta el texto resaltado. Lee el procedimiento. Verás que declara algunos parámetros de entrada y los usa para insertar filas en la tabla enclosure y la tabla animal.
+1. Resalta la sección en **Crear procedimiento almacenado** de **DROP PROCEDURE** en **END $$.** Ejecuta el texto resaltado. Lee el procedimiento. Ves que declara algunos parámetros de entrada y los usa para insertar filas en la tabla enclosure y la tabla animal.
 
-1. Mantén Visual Studio Code abierto para continuar con la sección siguiente.
+1. Mantén Visual Studio Code abierto para continuar con la siguiente sección.
 
 ## Llame al procedimiento almacenado
 
-Ahora que has creado el procedimiento almacenado `new_exhibit()`, puedes llamarlo para agregar una nueva exposición a la base de datos del zoológico. El procedimiento toma varios parámetros de entrada, incluido el nombre de la exposición, el tipo de recinto y el número de animales de la exposición.
+Ahora que has creado el procedimiento almacenado `new_exhibit()`, puedes llamarlo para agregar una nueva exhibición a la base de datos zoo. El procedimiento toma varios parámetros de entrada, incluyendo el nombre de la exposición, el tipo de recinto y el número de animales de la exposición.
 
-1. Resalta la sección siguiendo el comentario **Call the stored procedure**. Ejecuta el texto resaltado. El script llama al procedimiento almacenado pasando valores a los parámetros de entrada.
+1. Resalta la sección que sigue al comentario **Llamar al procedimiento almacenado**. Ejecuta el texto resaltado. Este script llama al procedimiento almacenado pasando valores a los parámetros de entrada.
 
-1. Resalte y ejecute las dos instrucciones **SELECT**. Ejecuta el texto resaltado. Puedes ver que se insertó una fila nueva en enclosure y cinco filas nuevas insertadas en animal.
+1. Resalte y ejecute las dos instrucciones **SELECT**. Ejecuta el texto resaltado. Observa que se inserta una nueva fila en enclosure y cinco nuevas filas en animal.
 
 ## Creación y llamada de una función con valores de tabla
 
-Es hora de crear una función con valores de tabla. Una función con valores de tabla es una función definida por el usuario que devuelve una tabla. Puedes usar una función con valores de tabla en una instrucción `SELECT`, al igual que una tabla normal.
+Es hora de crear una función con valores de tabla. Una función con valores de tabla es una función definida por el usuario que devuelve una tabla. Puedes usar una función con valores de tabla en una instrucción `SELECT`, igual que una tabla normal.
 
-1. En Visual Studio Code, selecciona **File**, **Open File** y, a continuación, ve a los scripts de laboratorio. Selecciona **../Allfiles/Labs/05/Lab5_Table_Function.sql** y, después, selecciona **Abrir**. Si es necesario, vuelve a conectarte al servidor al seleccionar el texto **PGSQL desconectado** y después selecciona tu conexión al servidor PostgreSQL de la lista de la paleta de comandos. Si solicita una contraseña, escribe la contraseña que has generado anteriormente.
+1. En Visual Studio Code, selecciona **File**, **Open File**, y después ve a los scripts de laboratorio. Selecciona **../Allfiles/Labs/05/Lab5_Table_Function.sql** y, después, selecciona **Abrir**. Si es necesario, vuelve a conectarte al servidor al seleccionar el texto **PGSQL desconectado** y después selecciona tu conexión al servidor PostgreSQL de la lista de la paleta de comandos. Si solicita una contraseña, escribe la contraseña que has generado anteriormente.
 
-1. Ejecuta la instrucción **SELECT current_database()** para comprobar la base de datos actual. De nuevo, es muy probable que la base de datos esté establecida en `postgres`. Si es así, debes cambiarla a `zoodb`. Selecciona los puntos suspensivos de la barra de menús con el icono *ejecutar* y selecciona **Cambiar base de datos de PostgreSQL**. Selecciona `zoodb` de la lista de bases de datos. Vuelve a probar la conexión ejecutando la instrucción **SELECT current_database()**.
+1. Ejecuta la instrucción **SELECT current_database()** para comprobar la base de datos actual. De nuevo, lo más probable es que la base de datos esté establecida en `postgres`. Si es así, debes cambiarlo a `zoodb`. Selecciona los puntos suspensivos de la barra de menús con el icono *ejecutar* y selecciona **Cambiar base de datos de PostgreSQL**. Selecciona `zoodb` de la lista de bases de datos. Vuelve a probar la conexión al ejecutar la instrucción **SELECT current_database()**.
 
 1. Resalta y ejecuta el procedimiento almacenado **CALL repopulate_zoo()** para empezar con datos limpios.
 
-1. Resalta y ejecuta el script siguiendo el comentario **Create a table valued function**. Esta función devuelve una tabla denominada **enclosure_summary**. Lea el código de la función para comprender cómo se rellena la tabla.
+1. Resalta y ejecuta la sección bajo el comentario **Creación de una función con valores de tabla**. Esta función devuelve una tabla denominada **enclosure_summary**. Lea el código de la función para comprender cómo se rellena la tabla.
 
 1. Resalte y ejecute las dos instrucciones Select, pasando un identificador de contenedor diferente cada vez.
 
-1. Resalta y ejecuta el script siguiendo el comentario **How to use a table valued function with a LATERAL join**. Este script muestra la función con valores de tabla que se usa en lugar de un nombre de tabla en una combinación.
+1. Resalta y ejecuta la sección bajo el comentario **Uso de una función con valor de tabla con una combinación LATERAL**. Este script muestra la función con valores de tabla que se usa en lugar de un nombre de tabla en una combinación.
 
 ## Funciones integradas
 
 En esta sección, explorarás algunas de las funciones integradas disponibles en PostgreSQL. PostgreSQL tiene un amplio conjunto de funciones integradas que puedes usar para realizar diversas operaciones en los datos. Estas funciones se pueden usar en consultas SQL para manipular y analizar datos.
 
-1. En Visual Studio Code, selecciona **File**, **Open File** y, a continuación, ve a los scripts de laboratorio. Selecciona **../Allfiles/Labs/05/Lab5_SimpleFunctions.sql** y, después, selecciona **Abrir**. Si es necesario, vuelve a conectarte al servidor al seleccionar el texto **PGSQL desconectado** y después selecciona tu conexión al servidor PostgreSQL de la lista de la paleta de comandos. Si solicita una contraseña, escribe la contraseña que has generado anteriormente.
+1. En Visual Studio Code, selecciona **File**, **Open File**, y después ve a los scripts de laboratorio. Selecciona **../Allfiles/Labs/05/Lab5_SimpleFunctions.sql** y, después, selecciona **Abrir**. Si es necesario, vuelve a conectarte al servidor al seleccionar el texto **PGSQL desconectado** y después selecciona tu conexión al servidor PostgreSQL de la lista de la paleta de comandos. Si solicita una contraseña, escribe la contraseña que has generado anteriormente.
 
-> &#128221; Las funciones de este script no son específicas de la base de datos del zoológico. Son funciones generales de PostgreSQL que se pueden usar en cualquier base de datos. Puedes ejecutarlos en cualquier base de datos, incluida la base de datos `postgres`.
+> &#128221; Las funciones de este script no son específicas de la base de datos zoo. Son funciones generales de PostgreSQL que se pueden usar en cualquier base de datos. Puedes ejecutarlas en cualquier base de datos, incluyendo la base de datos `postgres`.
 
-1. Resalte y ejecute cada función para ver cómo funciona. Para obtener más información, consulta el artículo de [documentación en línea](https://www.postgresql.org/docs/current/functions.html) para obtener información sobre cada función.
+1. Resalte y ejecute cada función para ver cómo funciona. Para obtener más información, consulta el artículo [documentación en línea](https://www.postgresql.org/docs/current/functions.html) para obtener información sobre cada función.
 
-## Limpieza
-
-1. Si ya no necesitas este servidor PostgreSQL para otros ejercicios, para evitar incurrir en costes innecesarios de Azure, elimina el grupo de recursos creado en este ejercicio.
-
-1. Si deseas mantener el servidor PostgreSQL en funcionamiento, puedes dejarlo en ejecución. Si no quiere dejar que se ejecute, puedes detener el servidor para evitar incurrir en costes innecesarios en el terminal de Bash. Para detener el servidor, ejecuta el siguiente comando:
+1. Si deseas mantener el servidor PostgreSQL en funcionamiento, puedes dejarlo en ejecución. De lo contrario, puedes detener el servidor para evitar incurrir en costes innecesarios en el terminal de Bash. Para detener el servidor, ejecuta el siguiente comando:
 
     ```azurecli
     az postgres flexible-server stop --name <your-server-name> --resource-group $RG_NAME
@@ -318,8 +314,10 @@ En esta sección, explorarás algunas de las funciones integradas disponibles en
 
     > &#128221; También puedes detener el servidor desde Azure Portal. En Azure Portal, ve a **Grupos de recursos** y selecciona el grupo de recursos que has creado anteriormente. Selecciona el servidor PostgreSQL y después **Detener** en el menú.
 
+1. Cierra Visual Studio Code.
+
+## Limpieza
+
+1. Si ya no necesitas este servidor PostgreSQL para otros ejercicios, para evitar incurrir en costes innecesarios de Azure, elimina el grupo de recursos creado en este ejercicio.
+
 1. Si es necesario, elimina el repositorio Git que has clonado anteriormente.
-
-Has completado correctamente este ejercicio. Has creado un par de procedimientos almacenados y los has ejecutado. También has creado una función con valores de tabla y has explorado algunas de las funciones integradas disponibles en PostgreSQL.
-
-Ahora puedes usar estos procedimientos almacenados y funciones en tus propias bases de datos PostgreSQL para realizar diversas operaciones en los datos.
