@@ -117,15 +117,15 @@ En esta tarea, te conectarás a la base de datos `rentals` en el servidor flexib
 
 1. En [Azure Portal](https://portal.azure.com/), ve al servidor flexible de Azure Database for PostgreSQL recién creado.
 
-2. En el menú de recursos, en **Configuración**, selecciona **Bases de datos** selecciona **Conectar** para la base de datos `rentals`.
+1. En el menú de recursos, en **Configuración**, selecciona **Bases de datos** selecciona **Conectar** para la base de datos `rentals`. Ten en cuenta que al seleccionar **Conectar** no se conecta realmente a la base de datos; simplemente se proporcionan instrucciones para conectarse a la base de datos mediante varios métodos. Revisa las instrucciones para **conectarte desde el explorador o localmente** y úsalas para conectarte mediante Azure Cloud Shell.
 
     ![Captura de pantalla de la página Base de datos de Azure Database for PostgreSQL. Bases de datos y Conectar la base de datos de alquileres están resaltadas por cuadros rojos.](media/12-postgresql-rentals-database-connect.png)
 
-3. En el símbolo del sistema "Contraseña para el usuario pgAdmin" de Cloud Shell, escribe la contraseña generada aleatoriamente para el inicio de sesión **pgAdmin**.
+1. En el símbolo del sistema "Contraseña para el usuario pgAdmin" de Cloud Shell, escribe la contraseña generada aleatoriamente para el inicio de sesión **pgAdmin**.
 
     Una vez que hayas iniciado sesión, se muestra la solicitud `psql` de la base de datos `rentals`.
 
-4. Durante el resto de este ejercicio, seguirás trabajando en Cloud Shell, por lo que puede resultar útil expandir el panel dentro de la ventana del explorador seleccionando el botón **Maximizar** en la parte superior derecha del panel.
+1. Durante el resto de este ejercicio, seguirás trabajando en Cloud Shell, por lo que puede resultar útil expandir el panel dentro de la ventana del explorador seleccionando el botón **Maximizar** en la parte superior derecha del panel.
 
     ![Captura de pantalla del panel de Azure Cloud Shell con el botón Maximizar resaltado por un cuadro rojo.](media/12-azure-cloud-shell-pane-maximize.png)
 

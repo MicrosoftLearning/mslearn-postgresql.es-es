@@ -237,7 +237,7 @@ psql -h <servername> -p <port> -U <username> <dbname>
     Puedes encontrar el nombre del servidor en **Información general** en Azure Portal o como salida del script de Bicep o en Azure Portal.
 
     ```sql
-   psql -h <servername>.postgres.database.azure.com -p 5432 -U pgAdmin postgres
+   psql -h <servername>.postgres.database.azure.com -p 5432 -U pgAdmin adventureworks
     ```
 
     Se te pedirá la contraseña de la cuenta de administrador que copiaste anteriormente.
@@ -293,7 +293,7 @@ psql -h <servername> -p <port> -U <username> <dbname>
 
     1. En el cuadro de diálogo **NUEVA CONEXIÓN**, escribe la siguiente información:
 
-        - **Nombre del servidor**: `<your-server-name>`.postgres.database.azure.com
+        - **Nombre de servidor**: `<your-server-name>`.postgres.database.azure.com
         - **Tipo de autenticación**: contraseña
         - **Nombre de usuario**: pgAdmin
         - **Contraseña**: la contraseña aleatoria que has generado anteriormente.
@@ -318,7 +318,7 @@ psql -h <servername> -p <port> -U <username> <dbname>
     SELECT current_database();
     ```
 
-1. Si la base de datos actual no está establecida en **adventureworks**, debes cambiar la base de datos a **adventureworks**. Para cambiar la base de datos, selecciona los puntos suspensivos de la barra de menús con el icono *ejecutar* y al seleccionar **Cambiar base de datos de PostgreSQL**. Selecciona `adventureworks` de la lista de bases de datos. Comprueba que la base de datos se ha establecido ahora en `adventureworks` mediante la ejecución de la instrucción **SELECT current_database();**.
+1. Si la base de datos actual no está establecida en **adventureworks**, debes cambiar la base de datos a **adventureworks**. Para cambiar la base de datos, selecciona los puntos suspensivos de la barra de menús con el icono *ejecutar* y al seleccionar **Cambiar base de datos de PostgreSQL**. Selecciona `adventureworks` en la lista de bases de datos. Comprueba que la base de datos se ha establecido ahora en `adventureworks` mediante la ejecución de la instrucción **SELECT current_database();**.
 
 1. En la ventana **New Query**, copia, resalta y ejecuta la siguiente instrucción SQL:
 

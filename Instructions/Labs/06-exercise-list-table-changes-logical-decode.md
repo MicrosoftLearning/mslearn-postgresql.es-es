@@ -125,7 +125,7 @@ En esta sección, crearás el servidor de publicador. El servidor de publicador 
 1. En la pestaña **Aspectos básicos** del servidor flexible, escriba cada campo de la siguiente manera:
     - **Suscripción**: su suscripción.
     - **Grupo de recursos**: selecciona **rg-PostgreSQL_Replication**.
-    - **Nombre del servidor** - *psql-postgresql-pub9999* (el nombre debe ser único globalmente, por tanto, reemplaza 9999 por cuatro números aleatorios).
+    - **Nombre del servidor** - *psql-postgresql-sub9999* (el nombre debe ser único globalmente, por tanto, reemplaza 9999 por cuatro números aleatorios).
     - **Región**: seleccione la misma región que el grupo de recursos.
     - **Versión de PostgreSQL**: selecciona 16.
     - **Tipo de carga de trabajo** - *Desarrollo.*.
@@ -181,12 +181,12 @@ En esta sección, configurarás el servidor de publicador. El servidor de public
 
     1. En el cuadro de diálogo **NUEVA CONEXIÓN**, escribe la siguiente información:
 
-        - **Nombre del servidor**: `<your-publisher-server-name>`.postgres.database.azure.com
+        - **Nombre de servidor**: `<your-publisher-server-name>`.postgres.database.azure.com
         - **Tipo de autenticación**: contraseña
         - **Nombre de usuario**: pgAdmin
         - **Contraseña**: la contraseña aleatoria que has generado anteriormente.
         - Marca la casilla **Guardar contraseña**.
-        - **Nombre de conexión**: `<your-publisher-server-name>`
+        - **Nombre de conexión**: `<your-publisher-server-name>`
 
     1. Prueba la conexión al seleccionar **Probar conexión**. Si la conexión se realiza correctamente, selecciona **Guardar y conectar** para guardar la conexión; de lo contrario, revisa la información de conexión e inténtalo de nuevo.
 

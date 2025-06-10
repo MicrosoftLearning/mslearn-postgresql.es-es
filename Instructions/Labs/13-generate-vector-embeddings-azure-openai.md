@@ -121,7 +121,7 @@ En esta tarea, te conectarás a la base de datos `rentals` en el servidor de Azu
 
 1. En [Azure Portal](https://portal.azure.com/), ve al servidor flexible recién creado de Azure Database for PostgreSQL.
 
-2. En el menú de recursos, en **Configuración**, selecciona **Bases de datos** selecciona **Conectar** para la base de datos `rentals`.
+2. En el menú de recursos, en **Configuración**, selecciona **Bases de datos** selecciona **Conectar** para la base de datos `rentals`. Ten en cuenta que al seleccionar **Conectar** no se conecta realmente a la base de datos; simplemente se proporcionan instrucciones para conectarse a la base de datos mediante varios métodos. Revisa las instrucciones para **conectarse desde el explorador o localmente** y úsalas para conectarte mediante Azure Cloud Shell.
 
     ![Captura de pantalla de la página Base de datos de Azure Database for PostgreSQL. Bases de datos y Conectar la base de datos de alquileres están resaltadas por cuadros rojos.](media/13-postgresql-rentals-database-connect.png)
 
@@ -145,7 +145,7 @@ Para almacenar y consultar vectores, y para generar incrustaciones, deberás hab
     CREATE EXTENSION vector;
     ```
 
-3. Para habilitar la extensión `azure_ai`, ejecuta el siguiente comando de SQL. Necesitarás el punto de conexión y la clave de API del recurso de Azure OpenAI. Para obtener instrucciones detalladas, consulta [Habilitación de la extensión `azure_ai`](https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/generative-ai-azure-overview#enable-the-azure_ai-extension).
+3. Para habilitar la extensión `azure_ai`, ejecuta el siguiente comando de SQL. Necesitarás el punto de conexión y la clave de API para el recurso de Azure OpenAI. Para obtener instrucciones detalladas, consulta [Habilitación de la extensión `azure_ai`](https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/generative-ai-azure-overview#enable-the-azure_ai-extension).
 
     ```sql
     CREATE EXTENSION azure_ai;
