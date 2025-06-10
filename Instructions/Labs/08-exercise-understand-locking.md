@@ -237,7 +237,7 @@ psql -h <servername> -p <port> -U <username> <dbname>
     Puedes encontrar el nombre del servidor en **Información general** en Azure Portal o como salida del script de Bicep o en Azure Portal.
 
     ```sql
-   psql -h <servername>.postgres.database.azure.com -p 5432 -U pgAdmin postgres
+   psql -h <servername>.postgres.database.azure.com -p 5432 -U pgAdmin adventureworks
     ```
 
     Se te pedirá la contraseña de la cuenta de administrador que copiaste anteriormente.
@@ -272,7 +272,7 @@ psql -h <servername> -p <port> -U <username> <dbname>
 1. Después, usa el comando `COPY` para cargar datos de archivos CSV en la tabla que has creado anteriormente. Empieza por ejecutar el siguiente comando para rellenar la tabla `production.workorder`:
 
     ```sql
-    \COPY production.workorder FROM 'mslearn-postgresql/Allfiles/Labs/08/Lab8_workorder.csv' CSV HEADER
+    \COPY production.workorder FROM 'Allfiles/Labs/08/Lab8_workorder.csv' CSV HEADER
     ```
 
     La salida del comando debe ser `COPY 72591`, que indica que se han escrito 72 591 filas en la tabla desde el archivo CSV.
@@ -293,7 +293,7 @@ psql -h <servername> -p <port> -U <username> <dbname>
 
     1. En el cuadro de diálogo **NUEVA CONEXIÓN**, escribe la siguiente información:
 
-        - **Nombre del servidor**: `<your-server-name>`.postgres.database.azure.com
+        - **Nombre de servidor**: `<your-server-name>`.postgres.database.azure.com
         - **Tipo de autenticación**: contraseña
         - **Nombre de usuario**: pgAdmin
         - **Contraseña**: la contraseña aleatoria que has generado anteriormente.
@@ -320,7 +320,7 @@ psql -h <servername> -p <port> -U <username> <dbname>
     SELECT current_database();
     ```
 
-1. Si la base de datos actual no está establecida en **adventureworks**, debes cambiar la base de datos a **adventureworks**. Para cambiar la base de datos, selecciona los puntos suspensivos de la barra de menús con el icono *ejecutar* y al seleccionar **Cambiar base de datos de PostgreSQL**. Selecciona `adventureworks` de la lista de bases de datos. Comprueba que la base de datos se ha establecido ahora en `adventureworks` mediante la ejecución de la instrucción **SELECT current_database();**.
+1. Si la base de datos actual no está establecida en **adventureworks**, debes cambiar la base de datos a **adventureworks**. Para cambiar la base de datos, selecciona los puntos suspensivos de la barra de menús con el icono *ejecutar* y al seleccionar **Cambiar base de datos de PostgreSQL**. Selecciona `adventureworks` en la lista de bases de datos. Comprueba que la base de datos se ha establecido ahora en `adventureworks` mediante la ejecución de la instrucción **SELECT current_database();**.
 
 1. En la ventana **New Query**, copia, resalta y ejecuta la siguiente instrucción SQL:
 
@@ -341,7 +341,7 @@ psql -h <servername> -p <port> -U <username> <dbname>
     SELECT current_database();
     ```
 
-1. Si la base de datos actual no está establecida en **adventureworks**, debes cambiar la base de datos a **adventureworks**. Para cambiar la base de datos, selecciona los puntos suspensivos de la barra de menús con el icono *ejecutar* y al seleccionar **Cambiar base de datos de PostgreSQL**. Selecciona `adventureworks` de la lista de bases de datos. Comprueba que la base de datos se ha establecido ahora en `adventureworks` mediante la ejecución de la instrucción **SELECT current_database();**.
+1. Si la base de datos actual no está establecida en **adventureworks**, debes cambiar la base de datos a **adventureworks**. Para cambiar la base de datos, selecciona los puntos suspensivos de la barra de menús con el icono *ejecutar* y al seleccionar **Cambiar base de datos de PostgreSQL**. Selecciona `adventureworks` en la lista de bases de datos. Comprueba que la base de datos se ha establecido ahora en `adventureworks` mediante la ejecución de la instrucción **SELECT current_database();**.
 
 1. En la ventana **New Query**, copia, resalta y ejecuta la siguiente instrucción SQL:
 
@@ -355,7 +355,7 @@ psql -h <servername> -p <port> -U <username> <dbname>
 
 1. Vuelve a la *primera* ventana de consulta y vuelve a ejecutar la consulta en esa ventana.
 
-1. Observa que el valor **stockedqty** de la primera fila sigue siendo **673**. La consulta usa una instantánea de los datos y no ve las actualizaciones de la otra transacción.
+1. Observa que el valor **scrappedqty** de la primera fila sigue siendo **673**. La consulta usa una instantánea de los datos y no ve las actualizaciones de la otra transacción.
 
 1. Selecciona la *segunda* pestaña de consulta, elimina la consulta existente, escribe la consulta siguiente y selecciona **Run**.
 
