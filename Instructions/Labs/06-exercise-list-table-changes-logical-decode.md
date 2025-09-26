@@ -91,7 +91,7 @@ En esta sección, crearás un grupo de recursos para que contenga los servidores
 
 En esta sección, crearás el servidor de publicador. El servidor de publicador es el origen de los datos que se van a replicar en el servidor de suscriptor.
 
-1. En Servicios de Azure, seleccione **Crear un recurso**. En **Categorías**, seleccione **Bases de datos**. En **Azure Database for PostgreSQL**, seleccione **Crear**.
+1. En Servicios de Azure, seleccione **+ Crear un recurso**. En **Categorías**, seleccione **Bases de datos**. En **Azure Database for PostgreSQL**, seleccione **Crear**.
 
 1. En la pestaña **Aspectos básicos** del servidor flexible, escriba cada campo de la siguiente manera:
     - **Suscripción**: su suscripción.

@@ -211,7 +211,7 @@ En esta sección, te conectarás al servidor PostgreSQL mediante la extensión P
 
     1. En el cuadro de diálogo **NUEVA CONEXIÓN**, escribe la siguiente información:
 
-        - **Nombre del servidor**: `<your-server-name>`.postgres.database.azure.com
+        - **Nombre de servidor**: `<your-server-name>`.postgres.database.azure.com
         - **Tipo de autenticación**: contraseña
         - **Nombre de usuario**: pgAdmin
         - **Contraseña**: la contraseña aleatoria que has generado anteriormente.
@@ -252,7 +252,7 @@ En esta sección, explorarás el proceso de vaciado en PostgreSQL. El proceso de
 
 1. En la parte inferior derecha de Visual Studio Code, asegúrate de que la conexión sea verde. Si no es así, debería decir **PGSQL desconectado**. Selecciona el texto **PGSQL desconectado** y después selecciona tu conexión al servidor PostgreSQL de la lista de la paleta de comandos. Si solicita una contraseña, escribe la contraseña que has generado anteriormente.
 
-1. Ejecuta la instrucción **SELECT current_database()** para comprobar la base de datos actual. Comprueba si la conexión está establecida actualmente en la base de datos **zoodb**. Si no es así, puedes cambiar la base de datos a **zoodb**. Para cambiar la base de datos, selecciona los puntos suspensivos de la barra de menús con el icono *ejecutar* y al seleccionar **Cambiar base de datos de PostgreSQL**. Selecciona `zoodb` de la lista de bases de datos. Verifica que la base de datos está ahora en `zoodb` al ejecutar la instrucción **SELECT current_database();**.
+1. Ejecuta la instrucción **SELECT current_database()** para comprobar la base de datos actual. Comprueba si la conexión está establecida actualmente en la base de datos **zoodb**. Si no es así, puedes cambiar la base de datos a **zoodb**. Para cambiar la base de datos, selecciona los puntos suspensivos de la barra de menús con el icono *ejecutar* y al seleccionar **Cambiar base de datos de PostgreSQL**. Selecciona `zoodb` en la lista de bases de datos. Verifica que la base de datos está ahora en `zoodb` al ejecutar la instrucción **SELECT current_database();**.
 
 1. Resalte y ejecute la sección **Display dead tuples**. Esta consulta muestra el número de tuplas inactivas y activas de la base de datos. Anote el número de tuplas inactivas.
 

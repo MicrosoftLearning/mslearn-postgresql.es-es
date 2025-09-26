@@ -17,7 +17,7 @@ Debe tener una suscripción a Azure propia para completar este ejercicio. Si no 
 1. En un explorador web, vaya a [Azure Portal](https://portal.azure.com). Inicie sesión con una cuenta de propietario o colaborador.
 2. En Servicios de Azure, seleccione **Grupos de recursos** y, a continuación, seleccione **+ Crear**.
 3. Comprueba que se muestra la suscripción correcta y después pon al grupo de recursos el nombre **rg-PostgreSQL_Flexi**. Seleccione una **región**.
-4. Seleccione **Revisar + crear**. Seleccione **Crear**.
+4. Selecciona **Revisar + crear.** Seleccione **Crear**.
 
 ### Creación de servidor flexible de Azure Database for PostgreSQL
 
@@ -41,7 +41,7 @@ Debe tener una suscripción a Azure propia para completar este ejercicio. Si no 
     1. Método de conectividad: (o) Acceso público (direcciones IP permitidas) y Punto de conexión privado
     1. Acceso público, selecciona **Permitir el acceso público a este recurso a través de Internet mediante una dirección IP pública**
     1. En Reglas de firewall, seleccione **+ Agregar dirección IP del cliente actual** para agregar la dirección IP actual como regla de firewall. Opcionalmente, puede asignar un nombre significativo a esta regla de firewall.
-1. Seleccione **Revisar + crear**. Revisa la configuración, y, después, selecciona **Crear** para crear el servidor flexible de Azure Database for PostgreSQL. Una vez completada la implementación, seleccione **Ir al recurso** para ir el paso siguiente.
+1. Selecciona **Revisar + crear.** Revisa la configuración, y, después, selecciona **Crear** para crear el servidor flexible de Azure Database for PostgreSQL. Una vez completada la implementación, seleccione **Ir al recurso** para ir el paso siguiente.
 
 ## Examen de los parámetros del servidor
 
@@ -79,7 +79,7 @@ Debe tener una suscripción a Azure propia para completar este ejercicio. Si no 
     1. Método de conectividad: (o) Acceso público (direcciones IP permitidas) y Punto de conexión privado
     1. Acceso público, selecciona **Permitir el acceso público a este recurso a través de Internet mediante una dirección IP pública**
     1. En Reglas de firewall, seleccione **+ Agregar dirección IP del cliente actual** para agregar la dirección IP actual como regla de firewall. Opcionalmente, puede asignar un nombre significativo a esta regla de firewall.
-1. Seleccione **Revisar + crear**. Revisa tu configuración y después selecciona **Crear** para crear tu servidor flexible Azure Database for PostgreSQL. Una vez completada la implementación, seleccione **Ir al recurso** para ir el paso siguiente.
+1. Selecciona **Revisar + crear.** Revisa tu configuración y después selecciona **Crear** para crear tu servidor flexible Azure Database for PostgreSQL. Una vez completada la implementación, seleccione **Ir al recurso** para ir el paso siguiente.
 
 ### Inspección del nuevo servidor
 
