@@ -211,7 +211,7 @@ En esta sección, te conectarás al servidor PostgreSQL mediante la extensión P
 
     1. En el cuadro de diálogo **NUEVA CONEXIÓN**, escribe la siguiente información:
 
-        - **Nombre del servidor**: `<your-server-name>`.postgres.database.azure.com
+        - **Nombre de servidor**: `<your-server-name>`.postgres.database.azure.com
         - **Tipo de autenticación**: contraseña
         - **Nombre de usuario**: pgAdmin
         - **Contraseña**: la contraseña aleatoria que has generado anteriormente.
@@ -334,7 +334,7 @@ En esta sección, crearás un nuevo rol en la base de datos PostgreSQL y le asig
 
 1. Selecciona la conexión del servidor PostgreSQL en la lista de la paleta de comandos. Si solicita una contraseña, escribe la contraseña que has generado anteriormente.
 
-1. En la ventana **New Query**, cambia la base de datos a **zoodb**. Para cambiar la base de datos, selecciona los puntos suspensivos de la barra de menús con el icono *ejecutar* y al seleccionar **Cambiar base de datos de PostgreSQL**. Selecciona `zoodb` de la lista de bases de datos. Verifica que la base de datos está ahora en `zoodb` al ejecutar la instrucción **SELECT current_database();**.
+1. En la ventana **New Query**, cambia la base de datos a **zoodb**. Para cambiar la base de datos, selecciona los puntos suspensivos de la barra de menús con el icono *ejecutar* y al seleccionar **Cambiar base de datos de PostgreSQL**. Selecciona `zoodb` en la lista de bases de datos. Verifica que la base de datos está ahora en `zoodb` al ejecutar la instrucción **SELECT current_database();**.
 
 1. En el panel de consulta, copia, resalta y ejecuta la siguiente instrucción SQL en la base de datos Postgres. Se deben devolver varios roles de usuario, incluido el rol de **pgAdmin** que usas para conectarte:
 
@@ -357,7 +357,7 @@ En esta sección, crearás un nuevo rol en la base de datos PostgreSQL y le asig
 
 1. Para habilitar el nuevo rol para consultar y modificar datos en la tabla **animal** de la base de datos **zoodb**, 
 
-    1. En la ventana **New Query**, cambia la base de datos a **zoodb**. Para cambiar la base de datos, selecciona los puntos suspensivos de la barra de menús con el icono *ejecutar* y al seleccionar **Cambiar base de datos de PostgreSQL**. Selecciona `zoodb` de la lista de bases de datos. Verifica que la base de datos está ahora en `zoodb` al ejecutar la instrucción **SELECT current_database();**.
+    1. En la ventana **New Query**, cambia la base de datos a **zoodb**. Para cambiar la base de datos, selecciona los puntos suspensivos de la barra de menús con el icono *ejecutar* y al seleccionar **Cambiar base de datos de PostgreSQL**. Selecciona `zoodb` en la lista de bases de datos. Verifica que la base de datos está ahora en `zoodb` al ejecutar la instrucción **SELECT current_database();**.
 
     1. ejecuta este código en la base de datos `zoodb`:
 
@@ -385,7 +385,7 @@ Vamos a probar el nuevo rol para asegurarnos de que tiene los permisos correctos
 
 1. Abre la paleta de comandos (Ctrl+Mayús+P) y selecciona **PGSQL: New Query**. Selecciona la nueva conexión que has creado de la lista de la paleta de comandos. Si solicitas una contraseña, escribe la contraseña que has creado para el nuevo rol.
 
-1. La conexión debe mostrar la base de datos **zoodb** de forma predeterminada. Si no es así, puedes cambiar la base de datos a **zoodb**. Para cambiar la base de datos, selecciona los puntos suspensivos de la barra de menús con el icono *ejecutar* y al seleccionar **Cambiar base de datos de PostgreSQL**. Selecciona `zoodb` de la lista de bases de datos. Verifica que la base de datos está ahora en `zoodb` al ejecutar la instrucción **SELECT current_database();**.
+1. La conexión debe mostrar la base de datos **zoodb** de forma predeterminada. Si no es así, puedes cambiar la base de datos a **zoodb**. Para cambiar la base de datos, selecciona los puntos suspensivos de la barra de menús con el icono *ejecutar* y al seleccionar **Cambiar base de datos de PostgreSQL**. Selecciona `zoodb` en la lista de bases de datos. Verifica que la base de datos está ahora en `zoodb` al ejecutar la instrucción **SELECT current_database();**.
 
 1. En la ventana **New Query**, copia, resalta y ejecuta la siguiente instrucción SQL en la base de datos **zoodb**:
 

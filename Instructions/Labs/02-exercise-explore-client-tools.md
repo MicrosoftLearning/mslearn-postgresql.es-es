@@ -307,7 +307,7 @@ En esta sección, te conectarás al servidor PostgreSQL mediante la extensión P
 
     1. En el cuadro de diálogo **NUEVA CONEXIÓN**, escribe la siguiente información:
 
-        - **Nombre del servidor**: `<your-server-name>`.postgres.database.azure.com
+        - **Nombre de servidor**: `<your-server-name>`.postgres.database.azure.com
         - **Tipo de autenticación**: contraseña
         - **Nombre de usuario**: pgAdmin
         - **Contraseña**: la contraseña aleatoria que has generado anteriormente.
